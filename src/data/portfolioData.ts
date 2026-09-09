@@ -180,7 +180,7 @@ export const portfolioData = {
       role: "Ph.D. Student in Mechanical Engineering",
       organization: "Brigham Young University (BYU)",
       location: "Provo, UT",
-      period: "2023 – Present",
+      period: "2025 – Present",
       description: [
         "Department of Mechanical Engineering, Brigham Young University.",
         "Graduate researcher in the BYU Neuromechanics Research Group.",
@@ -194,7 +194,7 @@ export const portfolioData = {
       role: "Graduate Research Assistant",
       organization: "BYU Neuromechanics Research Group",
       location: "Provo, UT",
-      period: "2023 – Present",
+      period: "2025 – Present",
       description: [
         "Conducting doctoral research in neural interfaces and neuromotor biomechanics.",
         "Developing computational algorithms for neural decoding and dynamic musculoskeletal analysis."

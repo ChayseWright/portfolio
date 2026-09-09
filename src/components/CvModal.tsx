@@ -85,7 +85,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
                   <div className="text-[#DDC6A4]">Brigham Young University, Provo, UT</div>
                   <div className="text-xs text-[#DDC6A4]/80 italic">Specialization: Neuromechanics, Brain-Computer Interfaces (BCI)</div>
                 </div>
-                <div className="text-xs font-mono text-[#CBA95D]">2023 – Present</div>
+                <div className="text-xs font-mono text-[#CBA95D]">2025 – Present</div>
               </div>
 
               <div className="flex justify-between items-start pt-2">
@@ -108,7 +108,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
               <div>
                 <div className="flex justify-between items-start">
                   <div className="font-bold text-[#F1F1F1]">Graduate Research Assistant</div>
-                  <div className="text-xs font-mono text-[#CBA95D]">2023 – Present</div>
+                  <div className="text-xs font-mono text-[#CBA95D]">2025 – Present</div>
                 </div>
                 <div className="text-[#DDC6A4] text-xs mb-2">BYU Neuromechanics Research Group</div>
                 <ul className="list-disc list-inside space-y-1 text-xs text-[#F1F1F1]/85">
