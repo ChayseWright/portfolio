@@ -43,13 +43,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
           className="group flex items-center gap-3.5 transition-transform"
         >
           <div className="w-10 h-10 bg-[#121215] border border-[#27272A] group-hover:border-[#FFFFFF] flex items-center justify-center transition-colors">
-            <span className="font-serif font-bold text-[#FFFFFF] text-sm tracking-wider">
+            <span className="font-serif font-normal text-[#FFFFFF] text-sm tracking-widest">
               CW
             </span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-serif font-bold text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors">
+              <span className="font-serif font-normal text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors">
                 {portfolioData.personal.name}
               </span>
               <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-[#1E1E24] text-[#9CA3AF] border border-[#27272A]">
@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
           <button
             onClick={onOpenCv}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-semibold tracking-wider uppercase bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-normal tracking-wider uppercase bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] shadow-md transition-all cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5 text-[#09090B]" />
             <span>Curriculum Vitae</span>
