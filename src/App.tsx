@@ -20,7 +20,7 @@ export function App() {
   const [isCvOpen, setIsCvOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="min-h-screen bg-[#0c1811] text-[#F1F1F1] flex flex-col selection:bg-[#CBA95D]/30 selection:text-[#CBA95D] font-serif">
       {/* Navigation */}
       <Navbar onOpenCv={() => setIsCvOpen(true)} />
 

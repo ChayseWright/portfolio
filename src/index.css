@@ -6,40 +6,47 @@
   }
   
   body {
-    background-color: #030712;
-    color: #f3f4f6;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #0c1811;
+    color: #F1F1F1;
+    font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', 'Newsreader', Georgia, serif;
+    letter-spacing: 0.02em;
   }
 }
 
-/* Custom engineering blueprint grid and glowing accents */
-.bg-grid-pattern {
-  background-size: 32px 32px;
+/* Royal Green & Gold Architectural Linework */
+.bg-grid-royal {
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(203, 169, 93, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 169, 93, 0.05) 1px, transparent 1px);
 }
 
-.bg-dots-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
+.bg-royal-gradient {
+  background: radial-gradient(circle at 50% 20%, rgba(44, 95, 62, 0.45) 0%, rgba(12, 24, 17, 0.95) 75%);
 }
 
-/* Custom scrollbars */
+/* Custom classic scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #0c1811;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 4px;
+  background: #2C5F3E;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #CBA95D;
 }

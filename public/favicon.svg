@@ -1,22 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0062B8"/>
-      <stop offset="1" stop-color="#00D2FF"/>
+    <linearGradient id="royalGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C5F3E"/>
+      <stop offset="1" stop-color="#CBA95D"/>
     </linearGradient>
   </defs>
-  <!-- Mechanical Gear Base -->
-  <circle cx="32" cy="32" r="28" fill="#050814" stroke="url(#grad)" stroke-width="3"/>
-  <circle cx="32" cy="32" r="14" stroke="#00D2FF" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Base Crest Shield / Circle -->
+  <rect x="4" y="4" width="56" height="56" fill="#0c1811" stroke="url(#royalGrad)" stroke-width="2.5"/>
+  <rect x="10" y="10" width="44" height="44" stroke="#CBA95D" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
   
-  <!-- Neural Network Nodes & Synapses -->
-  <circle cx="32" cy="20" r="3.5" fill="#00D2FF"/>
-  <circle cx="21" cy="38" r="3.5" fill="#38bdf8"/>
-  <circle cx="43" cy="38" r="3.5" fill="#38bdf8"/>
-  <circle cx="32" cy="32" r="4" fill="#ffffff"/>
+  <!-- Neural & Mechanical Monogram Nodes -->
+  <circle cx="32" cy="22" r="3.5" fill="#CBA95D"/>
+  <circle cx="22" cy="40" r="3.5" fill="#2C5F3E" stroke="#CBA95D" stroke-width="1.5"/>
+  <circle cx="42" cy="40" r="3.5" fill="#2C5F3E" stroke="#CBA95D" stroke-width="1.5"/>
+  <circle cx="32" cy="33" r="4.5" fill="#F1F1F1" stroke="#2C5F3E" stroke-width="1.5"/>
 
-  <path d="M32 20 L32 32 M32 32 L21 38 M32 32 L43 38 M21 38 L43 38" stroke="#00D2FF" stroke-width="1.5" opacity="0.8"/>
-  
-  <!-- BCI Waveform Indicator -->
-  <path d="M12 32 Q22 22, 32 32 T52 32" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M32 22 L32 33 M32 33 L22 40 M32 33 L42 40 M22 40 L42 40" stroke="#CBA95D" stroke-width="1.5" opacity="0.85"/>
 </svg>

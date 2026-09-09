@@ -45,7 +45,7 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = null; // transparent to blend with dark page
+    scene.background = null;
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(
@@ -76,75 +76,75 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     orbitControls.minDistance = 6;
     orbitControls.target.set(0, 4, 0);
 
-    // Grid helper with technical blueprint aesthetic
-    const gridHelper = new THREE.GridHelper(24, 24, 0x00D2FF, 0x1e293b);
+    // Grid helper with Royal Green and Gold aesthetic
+    const gridHelper = new THREE.GridHelper(24, 24, 0xCBA95D, 0x1c3a27);
     gridHelper.position.y = -0.01;
     scene.add(gridHelper);
 
     // Circular radar ring on the base
     const ringGeo = new THREE.RingGeometry(3.8, 4.0, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x00D2FF,
+      color: 0xCBA95D,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.25
+      opacity: 0.35
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     ringMesh.rotation.x = Math.PI / 2;
     scene.add(ringMesh);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    const mainLight = new THREE.DirectionalLight(0xfff8ee, 2.2);
     mainLight.position.set(15, 25, 15);
     mainLight.castShadow = true;
     scene.add(mainLight);
 
-    const blueBackLight = new THREE.DirectionalLight(0x0062B8, 3.0);
-    blueBackLight.position.set(-15, 10, -15);
-    scene.add(blueBackLight);
+    const greenBackLight = new THREE.DirectionalLight(0x2C5F3E, 3.5);
+    greenBackLight.position.set(-15, 10, -15);
+    scene.add(greenBackLight);
 
-    const cyanRimLight = new THREE.PointLight(0x00D2FF, 2.5, 30);
-    cyanRimLight.position.set(0, 10, 5);
-    scene.add(cyanRimLight);
+    const goldRimLight = new THREE.PointLight(0xCBA95D, 2.5, 30);
+    goldRimLight.position.set(0, 10, 5);
+    scene.add(goldRimLight);
 
-    // Materials
-    const carbonFiberMat = new THREE.MeshStandardMaterial({
-      color: 0x161c28,
-      roughness: 0.35,
-      metalness: 0.85,
-    });
-
-    const titaniumMat = new THREE.MeshStandardMaterial({
-      color: 0x8fa3b8,
-      roughness: 0.2,
-      metalness: 0.95,
-    });
-
-    const byuNavyMat = new THREE.MeshStandardMaterial({
-      color: 0x002E5D,
+    // Materials: Royal Green (#2C5F3E), Polished Gold (#CBA95D), Forest Dark (#112116)
+    const forestDarkMat = new THREE.MeshStandardMaterial({
+      color: 0x112116,
       roughness: 0.4,
-      metalness: 0.6,
+      metalness: 0.8,
     });
 
-    const cyanAccentMat = new THREE.MeshStandardMaterial({
-      color: 0x00D2FF,
+    const polishedGoldMat = new THREE.MeshStandardMaterial({
+      color: 0xCBA95D,
+      roughness: 0.25,
+      metalness: 0.9,
+    });
+
+    const royalGreenMat = new THREE.MeshStandardMaterial({
+      color: 0x2C5F3E,
+      roughness: 0.35,
+      metalness: 0.65,
+    });
+
+    const goldAccentMat = new THREE.MeshStandardMaterial({
+      color: 0xddc6a4,
       roughness: 0.2,
-      metalness: 0.8,
-      emissive: 0x005577,
-      emissiveIntensity: 0.4
+      metalness: 0.85,
+      emissive: 0x3d2e11,
+      emissiveIntensity: 0.3
     });
 
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xCBA95D,
       wireframe: true,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.7
     });
 
-    const materialsList = [carbonFiberMat, titaniumMat, byuNavyMat, cyanAccentMat];
+    const materialsList = [forestDarkMat, polishedGoldMat, royalGreenMat, goldAccentMat];
 
     // ==========================================
     // Construct Articulated Biomechatronic Robotic Arm
@@ -154,18 +154,18 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
 
     // 1. Pedestal / Base Mount
     const baseGroup = new THREE.Group();
-    const basePlate = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 4.0, 0.6, 32), carbonFiberMat);
+    const basePlate = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 4.0, 0.6, 32), forestDarkMat);
     basePlate.position.y = 0.3;
     basePlate.castShadow = true;
     basePlate.receiveShadow = true;
     baseGroup.add(basePlate);
 
-    const baseTurntable = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.6, 0.8, 32), titaniumMat);
+    const baseTurntable = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.6, 0.8, 32), polishedGoldMat);
     baseTurntable.position.y = 1.0;
     baseGroup.add(baseTurntable);
 
     // Base encoder ring
-    const encoderRing = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.08, 16, 64), cyanAccentMat);
+    const encoderRing = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.08, 16, 64), goldAccentMat);
     encoderRing.position.y = 1.0;
     encoderRing.rotation.x = Math.PI / 2;
     baseGroup.add(encoderRing);
@@ -176,11 +176,11 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     const shoulderGroup = new THREE.Group();
     shoulderGroup.position.y = 1.4;
 
-    const shoulderJoint = new THREE.Mesh(new THREE.SphereGeometry(1.5, 32, 32), titaniumMat);
+    const shoulderJoint = new THREE.Mesh(new THREE.SphereGeometry(1.5, 32, 32), polishedGoldMat);
     shoulderJoint.position.y = 1.0;
     shoulderGroup.add(shoulderJoint);
 
-    const shoulderBearingCap = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.4, 32), byuNavyMat);
+    const shoulderBearingCap = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.4, 32), royalGreenMat);
     shoulderBearingCap.position.set(0, 1.0, 0);
     shoulderBearingCap.rotation.z = Math.PI / 2;
     shoulderGroup.add(shoulderBearingCap);
@@ -192,24 +192,24 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     upperArmGroup.position.set(0, 1.0, 0);
     shoulderGroup.add(upperArmGroup);
 
-    // Dual carbon fiber spars
+    // Dual forest green spars
     const sparGeo = new THREE.BoxGeometry(0.5, 4.5, 0.8);
-    const sparLeft = new THREE.Mesh(sparGeo, carbonFiberMat);
+    const sparLeft = new THREE.Mesh(sparGeo, royalGreenMat);
     sparLeft.position.set(-0.9, 2.4, 0);
     upperArmGroup.add(sparLeft);
 
-    const sparRight = new THREE.Mesh(sparGeo, carbonFiberMat);
+    const sparRight = new THREE.Mesh(sparGeo, royalGreenMat);
     sparRight.position.set(0.9, 2.4, 0);
     upperArmGroup.add(sparRight);
 
     // Central SEA Spring cylinder (Series Elastic Actuator)
-    const seaCylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 3.2, 24), byuNavyMat);
+    const seaCylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 3.2, 24), forestDarkMat);
     seaCylinder.position.set(0, 2.4, 0);
     upperArmGroup.add(seaCylinder);
 
-    // Actuator telemetry coil rings
+    // Actuator telemetry coil rings (Gold)
     for (let i = 0; i < 5; i++) {
-      const coil = new THREE.Mesh(new THREE.TorusGeometry(0.75, 0.05, 12, 32), cyanAccentMat);
+      const coil = new THREE.Mesh(new THREE.TorusGeometry(0.75, 0.05, 12, 32), polishedGoldMat);
       coil.position.set(0, 1.4 + i * 0.5, 0);
       coil.rotation.x = Math.PI / 2;
       upperArmGroup.add(coil);
@@ -220,16 +220,16 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     elbowGroup.position.set(0, 4.8, 0);
     upperArmGroup.add(elbowGroup);
 
-    const elbowPivot = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 2.4, 32), titaniumMat);
+    const elbowPivot = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 2.4, 32), polishedGoldMat);
     elbowPivot.rotation.z = Math.PI / 2;
     elbowGroup.add(elbowPivot);
 
-    const elbowCapL = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 0.2, 32), cyanAccentMat);
+    const elbowCapL = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 0.2, 32), royalGreenMat);
     elbowCapL.position.x = -1.25;
     elbowCapL.rotation.z = Math.PI / 2;
     elbowGroup.add(elbowCapL);
 
-    const elbowCapR = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 0.2, 32), cyanAccentMat);
+    const elbowCapR = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 0.2, 32), royalGreenMat);
     elbowCapR.position.x = 1.25;
     elbowCapR.rotation.z = Math.PI / 2;
     elbowGroup.add(elbowCapR);
@@ -239,21 +239,20 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     forearmGroup.position.set(0, 0, 0);
     elbowGroup.add(forearmGroup);
 
-    // Tapered forearm housing
     const forearmGeo = new THREE.CylinderGeometry(0.8, 1.1, 4.0, 16);
-    const forearmMesh = new THREE.Mesh(forearmGeo, carbonFiberMat);
+    const forearmMesh = new THREE.Mesh(forearmGeo, royalGreenMat);
     forearmMesh.position.set(0, 2.2, 0);
     forearmGroup.add(forearmMesh);
 
     // Embedded EMG Sensor Ring
-    const emgRing = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, 0.6, 24), byuNavyMat);
+    const emgRing = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, 0.6, 24), forestDarkMat);
     emgRing.position.set(0, 1.2, 0);
     forearmGroup.add(emgRing);
 
     // Electrodes on the ring
     for (let e = 0; e < 8; e++) {
       const angle = (e / 8) * Math.PI * 2;
-      const electrode = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.3, 0.18), cyanAccentMat);
+      const electrode = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.3, 0.18), polishedGoldMat);
       electrode.position.set(Math.cos(angle) * 1.18, 1.2, Math.sin(angle) * 1.18);
       forearmGroup.add(electrode);
     }
@@ -263,11 +262,11 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     wristGroup.position.set(0, 4.2, 0);
     forearmGroup.add(wristGroup);
 
-    const wristGimbal = new THREE.Mesh(new THREE.SphereGeometry(0.85, 24, 24), titaniumMat);
+    const wristGimbal = new THREE.Mesh(new THREE.SphereGeometry(0.85, 24, 24), polishedGoldMat);
     wristGroup.add(wristGimbal);
 
     // Palm structure
-    const palm = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.2, 0.6), carbonFiberMat);
+    const palm = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.2, 0.6), royalGreenMat);
     palm.position.set(0, 1.0, 0);
     wristGroup.add(palm);
 
@@ -280,14 +279,14 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
       fingerGroup.position.set(xPos, 1.6, 0);
 
       // Proximal phalanx
-      const prox = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.7, 0.32), titaniumMat);
+      const prox = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.7, 0.32), polishedGoldMat);
       prox.position.y = 0.35;
       fingerGroup.add(prox);
 
-      // Intermediate + Distal phalanx
+      // Distal phalanx
       const distGroup = new THREE.Group();
       distGroup.position.set(0, 0.7, 0);
-      const dist = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.6, 0.28), cyanAccentMat);
+      const dist = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.6, 0.28), goldAccentMat);
       dist.position.y = 0.3;
       distGroup.add(dist);
       fingerGroup.add(distGroup);
@@ -301,10 +300,10 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     thumbGroup.position.set(-0.95, 0.8, 0.2);
     thumbGroup.rotation.z = 0.6;
     thumbGroup.rotation.y = 0.4;
-    const thumbProx = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.3), titaniumMat);
+    const thumbProx = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.6, 0.3), polishedGoldMat);
     thumbProx.position.y = 0.3;
     thumbGroup.add(thumbProx);
-    const thumbDist = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.5, 0.26), cyanAccentMat);
+    const thumbDist = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.5, 0.26), goldAccentMat);
     thumbDist.position.set(0, 0.8, 0);
     thumbGroup.add(thumbDist);
     wristGroup.add(thumbGroup);
@@ -323,7 +322,6 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
       palm: palm.position.clone()
     };
 
-    // Store state controls
     let currentMode = motionMode;
     let isExploded = exploded;
 
@@ -334,16 +332,15 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
             child.material = val ? wireMat : materialsList[Math.floor(Math.random() * materialsList.length)];
           }
         });
-        // Restore standard assignments if not wireframe
         if (!val) {
-          basePlate.material = carbonFiberMat;
-          baseTurntable.material = titaniumMat;
-          sparLeft.material = carbonFiberMat;
-          sparRight.material = carbonFiberMat;
-          seaCylinder.material = byuNavyMat;
-          elbowPivot.material = titaniumMat;
-          forearmMesh.material = carbonFiberMat;
-          palm.material = carbonFiberMat;
+          basePlate.material = forestDarkMat;
+          baseTurntable.material = polishedGoldMat;
+          sparLeft.material = royalGreenMat;
+          sparRight.material = royalGreenMat;
+          seaCylinder.material = forestDarkMat;
+          elbowPivot.material = polishedGoldMat;
+          forearmMesh.material = royalGreenMat;
+          palm.material = royalGreenMat;
         }
       },
       setExploded: (val: boolean) => {
@@ -368,14 +365,11 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
       const elapsed = clock.getElapsedTime();
       orbitControls.update();
 
-      // Slow idle rotation of entire rig if animating
       if (isAnimating) {
         rootGroup.rotation.y = Math.sin(elapsed * 0.25) * 0.4;
       }
 
-      // Kinematic Articulation based on Motion Mode
       if (currentMode === 'bci-cycle') {
-        // Natural physiological reaching & grasping cycle
         const reachT = elapsed * 1.8;
         const shoulderPitch = Math.sin(reachT) * 0.35 + 0.1;
         const elbowPitch = Math.cos(reachT) * 0.55 - 0.4;
@@ -385,13 +379,11 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
         elbowGroup.rotation.z = elbowPitch;
         wristGroup.rotation.y = wristYaw;
 
-        // Synchronous finger grasp flexing
         const grasp = Math.max(0, Math.sin(reachT));
         fingers.forEach((f, i) => {
           f.rotation.z = grasp * (0.8 + i * 0.05);
         });
 
-        // Update displayed telemetry
         setActiveJointAngle({
           shoulder: Math.round((shoulderPitch * 180) / Math.PI),
           elbow: Math.round((elbowPitch * 180) / Math.PI),
@@ -406,11 +398,9 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
         });
 
       } else if (currentMode === 'tremor-suppression') {
-        // High frequency pathological tremor perturbation (6 Hz) actively suppressed
-        const tremorFreq = elapsed * Math.PI * 2 * 6; // 6 Hz
+        const tremorFreq = elapsed * Math.PI * 2 * 6;
         const rawTremor = Math.sin(tremorFreq) * 0.18;
-        // Suppressed residual amplitude
-        const suppressedAngle = rawTremor * 0.15; // 85% attenuation
+        const suppressedAngle = rawTremor * 0.15;
 
         upperArmGroup.rotation.z = 0.2;
         elbowGroup.rotation.z = -0.4;
@@ -419,7 +409,7 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
         setActiveJointAngle({
           shoulder: 12,
           elbow: -23,
-          wrist: +(suppressedAngle * 180 / Math.PI).toFixed(2) as any
+          wrist: Math.round(suppressedAngle * 180 / Math.PI)
         });
 
         setTelemetry({
@@ -430,13 +420,11 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
         });
 
       } else {
-        // Manual mode - relaxed steady pose
         upperArmGroup.rotation.z = 0.1;
         elbowGroup.rotation.z = -0.2;
         wristGroup.rotation.z = 0;
       }
 
-      // Smooth Exploded View Interpolation
       const explodeFactor = isExploded ? 1.8 : 0.0;
       sparLeft.position.x = THREE.MathUtils.lerp(sparLeft.position.x, originalPositions.sparLeft.x - explodeFactor * 0.8, 0.1);
       sparRight.position.x = THREE.MathUtils.lerp(sparRight.position.x, originalPositions.sparRight.x + explodeFactor * 0.8, 0.1);
@@ -449,7 +437,6 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
 
     animate();
 
-    // Handle Resize
     const handleResize = () => {
       if (!container) return;
       camera.aspect = container.clientWidth / container.clientHeight;
@@ -469,7 +456,6 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
     };
   }, []);
 
-  // Update controls upon React state changes
   useEffect(() => {
     controlsRef.current?.setWireframe(wireframe);
   }, [wireframe]);
@@ -483,88 +469,88 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
   }, [motionMode]);
 
   return (
-    <div className={`relative w-full rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-900/60 backdrop-blur-md shadow-2xl shadow-cyan-950/20 ${className}`}>
-      {/* 3D Canvas Container */}
+    <div className={`relative w-full border border-[#CBA95D]/30 bg-[#0e1e15] shadow-2xl ${className}`}>
+      {/* 3D Canvas */}
       <div 
         ref={containerRef} 
         className="w-full h-[460px] md:h-[540px] cursor-grab active:cursor-grabbing"
       />
 
-      {/* Top Left: Lab Tag & Real-Time Status */}
-      <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 border border-cyan-500/30 backdrop-blur-md text-xs font-mono text-cyan-300">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+      {/* Top Left: Lab Tag & Status (Sharp, Classical Border) */}
+      <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none font-serif">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#0a160f]/90 border border-[#CBA95D]/40 text-xs font-mono text-[#CBA95D] tracking-wider">
+          <span className="w-2 h-2 bg-[#CBA95D] animate-ping" />
           <span>BYU NEURO-MECHATRONICS 3D TWIN</span>
         </div>
-        <div className="text-[11px] font-mono text-slate-400 bg-slate-950/60 px-2.5 py-1 rounded backdrop-blur-sm border border-slate-800 flex items-center gap-2">
-          <Activity className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Status: <strong className="text-cyan-200">{telemetry.status}</strong></span>
+        <div className="text-[11px] font-mono text-[#DDC6A4] bg-[#0a160f]/80 px-2.5 py-1 border border-[#2C5F3E] flex items-center gap-2">
+          <Activity className="w-3.5 h-3.5 text-[#CBA95D]" />
+          <span>Status: <strong className="text-[#F1F1F1]">{telemetry.status}</strong></span>
         </div>
       </div>
 
-      {/* Top Right: Real-time Telemetry Overlay */}
-      <div className="absolute top-4 right-4 hidden sm:flex flex-col gap-1.5 font-mono text-xs bg-slate-950/85 border border-slate-800 p-3 rounded-xl backdrop-blur-md pointer-events-none min-w-[170px]">
-        <div className="flex justify-between items-center text-slate-400 border-b border-slate-800/80 pb-1 mb-1">
-          <span className="flex items-center gap-1.5 text-cyan-400">
+      {/* Top Right: Telemetry (Sharp, Classical) */}
+      <div className="absolute top-4 right-4 hidden sm:flex flex-col gap-1.5 font-mono text-xs bg-[#0a160f]/90 border border-[#CBA95D]/30 p-3.5 pointer-events-none min-w-[180px]">
+        <div className="flex justify-between items-center text-[#DDC6A4] border-b border-[#2C5F3E] pb-1.5 mb-1 font-serif">
+          <span className="flex items-center gap-1.5 text-[#CBA95D] font-bold">
             <Zap className="w-3.5 h-3.5" /> BCI Telemetry
           </span>
-          <span className="text-[10px] text-emerald-400">ONLINE</span>
+          <span className="text-[10px] text-[#CBA95D] tracking-wider">ONLINE</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-400">Decoding Latency:</span>
-          <span className="text-cyan-300 font-semibold">{telemetry.decodingLatency} ms</span>
+          <span className="text-[#DDC6A4]/70">Decoding Latency:</span>
+          <span className="text-[#CBA95D] font-semibold">{telemetry.decodingLatency} ms</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-400">Cortical Power:</span>
-          <span className="text-blue-300 font-semibold">{telemetry.eegPower} µV²</span>
+          <span className="text-[#DDC6A4]/70">Cortical Power:</span>
+          <span className="text-[#F1F1F1] font-semibold">{telemetry.eegPower} µV²</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-400">SEA Torque:</span>
-          <span className="text-indigo-300 font-semibold">{telemetry.actuatorTorque} Nm</span>
+          <span className="text-[#DDC6A4]/70">SEA Torque:</span>
+          <span className="text-[#CBA95D] font-semibold">{telemetry.actuatorTorque} Nm</span>
         </div>
-        <div className="flex justify-between border-t border-slate-800/80 pt-1 mt-1 text-[11px]">
-          <span className="text-slate-400">Joints [S/E/W]:</span>
-          <span className="text-slate-200">{activeJointAngle.shoulder}° / {activeJointAngle.elbow}° / {activeJointAngle.wrist}°</span>
+        <div className="flex justify-between border-t border-[#2C5F3E] pt-1.5 mt-1 text-[11px]">
+          <span className="text-[#DDC6A4]/70">Joints [S/E/W]:</span>
+          <span className="text-[#F1F1F1]">{activeJointAngle.shoulder}° / {activeJointAngle.elbow}° / {activeJointAngle.wrist}°</span>
         </div>
       </div>
 
-      {/* Bottom Center: Interactive Engineering Controls */}
-      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md">
+      {/* Bottom: Professional Architectural Controls (Sharp Corners) */}
+      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#0a160f]/95 border border-[#CBA95D]/30">
         {/* Motion Modes */}
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setMotionMode('bci-cycle')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 ${
               motionMode === 'bci-cycle'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[#2C5F3E] text-[#F1F1F1] border border-[#CBA95D]/70 font-semibold'
+                : 'text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] border border-transparent'
             }`}
           >
-            <Zap className="w-3.5 h-3.5" />
+            <Zap className="w-3.5 h-3.5 text-[#CBA95D]" />
             <span>BCI Reach Cycle</span>
           </button>
 
           <button
             onClick={() => setMotionMode('tremor-suppression')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 ${
               motionMode === 'tremor-suppression'
-                ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[#2C5F3E] text-[#F1F1F1] border border-[#CBA95D]/70 font-semibold'
+                : 'text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] border border-transparent'
             }`}
           >
-            <Gauge className="w-3.5 h-3.5" />
+            <Gauge className="w-3.5 h-3.5 text-[#CBA95D]" />
             <span>Tremor Suppression</span>
           </button>
         </div>
 
         {/* CAD & View Toggles */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={() => setWireframe(!wireframe)}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 ${
               wireframe 
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50' 
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]' 
+                : 'text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] border border-transparent'
             }`}
             title="Toggle Wireframe CAD Mode"
           >
@@ -574,10 +560,10 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
 
           <button
             onClick={() => setExploded(!exploded)}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 ${
               exploded 
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50' 
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]' 
+                : 'text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] border border-transparent'
             }`}
             title="Exploded Mechanical Assembly View"
           >
@@ -587,16 +573,16 @@ export const ThreeMechViewer: React.FC<ThreeMechViewerProps> = ({ className = ''
 
           <button
             onClick={() => setIsAnimating(!isAnimating)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-all"
-            title={isAnimating ? "Pause Auto-Rotation" : "Resume Auto-Rotation"}
+            className="p-1.5 text-[#DDC6A4] hover:text-[#CBA95D] hover:bg-[#162e20] transition-all border border-transparent hover:border-[#2C5F3E]"
+            title={isAnimating ? "Pause Rotation" : "Resume Rotation"}
           >
             {isAnimating ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </button>
 
           <button
             onClick={() => controlsRef.current?.resetView()}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-all"
-            title="Reset Camera View"
+            className="p-1.5 text-[#DDC6A4] hover:text-[#CBA95D] hover:bg-[#162e20] transition-all border border-transparent hover:border-[#2C5F3E]"
+            title="Reset View"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
