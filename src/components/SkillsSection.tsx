@@ -29,19 +29,19 @@ export const SkillsSection: React.FC = () => {
   ];
 
   return (
-    <section id="skills" className="py-24 relative bg-[#09140e] border-t border-[#2C5F3E]">
+    <section id="skills" className="py-24 relative bg-black border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-3xl mb-16 font-serif">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]/40 mb-3">
-            <Code2 className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-neutral-950 text-neutral-300 border border-white/30 mb-3">
+            <Code2 className="w-3.5 h-3.5 text-neutral-400" />
             <span>RESEARCH CAPABILITIES</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F1F1F1] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
             Toolchain & Methodologies
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#DDC6A4]">
+          <p className="mt-2 text-sm sm:text-base text-neutral-400">
             Technical skills and experimental tools utilized in ongoing graduate research.
           </p>
         </div>
@@ -51,14 +51,14 @@ export const SkillsSection: React.FC = () => {
           {categories.map((cat, idx) => (
             <div
               key={idx}
-              className="p-7 bg-[#0e1f16] border border-[#2C5F3E] flex flex-col justify-between"
+              className="p-7 bg-neutral-950 border border-white/20 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#2C5F3E]">
-                  <div className="p-2.5 bg-[#162e20] border border-[#CBA95D]/40">
-                    <cat.icon className="w-5 h-5 text-[#CBA95D]" />
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/20">
+                  <div className="p-2.5 bg-black border border-white/40">
+                    <cat.icon className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-base sm:text-lg font-serif font-bold text-[#F1F1F1] leading-snug">
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-white leading-snug">
                     {cat.title}
                   </h3>
                 </div>
@@ -68,9 +68,9 @@ export const SkillsSection: React.FC = () => {
                   {cat.items.map((skill, sIdx) => (
                     <li 
                       key={sIdx}
-                      className="text-sm font-serif text-[#F1F1F1]/90 flex items-center gap-2 pb-2 border-b border-[#162e20] last:border-0"
+                      className="text-sm font-serif text-neutral-300 flex items-center gap-2 pb-2 border-b border-neutral-900 last:border-0"
                     >
-                      <span className="w-1.5 h-1.5 bg-[#CBA95D] shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-white shrink-0" />
                       <span>{skill}</span>
                     </li>
                   ))}

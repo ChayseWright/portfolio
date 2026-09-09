@@ -22,11 +22,11 @@ export const NeuralWaveBackground: React.FC<{ className?: string }> = ({ classNa
 
     // Simulated multi-channel EEG / EMG channels
     const channels = [
-      { baseFreq: 0.015, amp: 24, speed: 1.2, yRatio: 0.20, color: 'rgba(203, 169, 93, 0.35)', label: 'CH1: EEG-Fz (θ/α)' },
-      { baseFreq: 0.022, amp: 32, speed: 1.8, yRatio: 0.38, color: 'rgba(44, 95, 62, 0.65)', label: 'CH2: EEG-Cz (μ-rhythm)' },
-      { baseFreq: 0.035, amp: 18, speed: 2.2, yRatio: 0.56, color: 'rgba(203, 169, 93, 0.40)', label: 'CH3: EMG-Flexor (sEMG)' },
-      { baseFreq: 0.018, amp: 28, speed: 1.5, yRatio: 0.74, color: 'rgba(44, 95, 62, 0.55)', label: 'CH4: EMG-Extensor' },
-      { baseFreq: 0.028, amp: 22, speed: 2.0, yRatio: 0.88, color: 'rgba(221, 198, 164, 0.30)', label: 'CH5: Cortical Intent' },
+      { baseFreq: 0.015, amp: 24, speed: 1.2, yRatio: 0.20, color: 'rgba(255, 255, 255, 0.40)', label: 'CH1: EEG-Fz (θ/α)' },
+      { baseFreq: 0.022, amp: 32, speed: 1.8, yRatio: 0.38, color: 'rgba(255, 255, 255, 0.60)', label: 'CH2: EEG-Cz (μ-rhythm)' },
+      { baseFreq: 0.035, amp: 18, speed: 2.2, yRatio: 0.56, color: 'rgba(255, 255, 255, 0.35)', label: 'CH3: EMG-Flexor (sEMG)' },
+      { baseFreq: 0.018, amp: 28, speed: 1.5, yRatio: 0.74, color: 'rgba(255, 255, 255, 0.50)', label: 'CH4: EMG-Extensor' },
+      { baseFreq: 0.028, amp: 22, speed: 2.0, yRatio: 0.88, color: 'rgba(255, 255, 255, 0.25)', label: 'CH5: Cortical Intent' },
     ];
 
     let t = 0;
@@ -40,7 +40,7 @@ export const NeuralWaveBackground: React.FC<{ className?: string }> = ({ classNa
 
         // Baseline guideline
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(44, 95, 62, 0.15)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.10)';
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 8]);
         ctx.moveTo(0, centerY);
@@ -50,7 +50,7 @@ export const NeuralWaveBackground: React.FC<{ className?: string }> = ({ classNa
 
         // Channel Label on left
         ctx.font = '10px "JetBrains Mono", monospace';
-        ctx.fillStyle = 'rgba(203, 169, 93, 0.45)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.40)';
         ctx.fillText(ch.label, 16, centerY - 8);
 
         // Neural waveform trace

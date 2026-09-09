@@ -19,20 +19,20 @@ export const BibtexModal: React.FC<BibtexModalProps> = ({ publication, onClose }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-[#0c1811] border border-[#2C5F3E] shadow-2xl shadow-[#2C5F3E]/30 overflow-hidden font-serif"
+        className="relative w-full max-w-2xl bg-black border border-white/40 shadow-2xl shadow-white/5 overflow-hidden font-serif"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#2C5F3E] bg-[#0e1f16]">
-          <div className="flex items-center gap-2 text-[#CBA95D] text-xs font-serif uppercase tracking-widest font-bold">
-            <FileText className="w-4 h-4 text-[#CBA95D]" />
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/20 bg-neutral-950">
+          <div className="flex items-center gap-2 text-white text-xs font-serif uppercase tracking-widest font-bold">
+            <FileText className="w-4 h-4 text-neutral-400" />
             <span>BibTeX Citation Dossier</span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] transition-all"
+            className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -41,45 +41,45 @@ export const BibtexModal: React.FC<BibtexModalProps> = ({ publication, onClose }
 
         {/* Paper title info */}
         <div className="px-6 pt-5 pb-3">
-          <h4 className="text-base font-serif font-bold text-[#F1F1F1] line-clamp-2">
+          <h4 className="text-base font-serif font-bold text-white line-clamp-2">
             {publication.title}
           </h4>
-          <p className="text-xs font-serif text-[#CBA95D] mt-1">
+          <p className="text-xs font-serif text-neutral-400 mt-1">
             {publication.venue} ({publication.year})
           </p>
         </div>
 
         {/* BibTeX Code Box */}
         <div className="p-6 pt-2">
-          <div className="relative bg-[#060c08] border border-[#2C5F3E] p-4 font-mono text-xs text-[#DDC6A4] overflow-x-auto">
-            <pre className="whitespace-pre-wrap selection:bg-[#2C5F3E] selection:text-[#F1F1F1]">{publication.bibtex}</pre>
+          <div className="relative bg-neutral-950 border border-white/20 p-4 font-mono text-xs text-neutral-200 overflow-x-auto">
+            <pre className="whitespace-pre-wrap selection:bg-white selection:text-black">{publication.bibtex}</pre>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-[#2C5F3E] bg-[#0e1f16]">
-          <span className="text-xs font-serif text-[#DDC6A4]">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-white/20 bg-neutral-950">
+          <span className="text-xs font-serif text-neutral-400">
             Copy to clipboard for academic citation managers
           </span>
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-serif text-[#DDC6A4] hover:text-[#F1F1F1] hover:bg-[#162e20] border border-transparent hover:border-[#2C5F3E] transition-all"
+              className="px-4 py-2 text-xs font-serif text-neutral-400 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-white/30 transition-all"
             >
               Close
             </button>
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif uppercase tracking-wider font-bold bg-[#2C5F3E] hover:bg-[#1e422b] text-[#F1F1F1] border border-[#CBA95D] shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif uppercase tracking-wider font-bold bg-white hover:bg-neutral-200 text-black border border-white shadow-md transition-all"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-[#CBA95D]" />
+                  <Check className="w-4 h-4 text-black" />
                   <span>Copied to Clipboard</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4 text-[#CBA95D]" />
+                  <Copy className="w-4 h-4 text-black" />
                   <span>Copy BibTeX</span>
                 </>
               )}

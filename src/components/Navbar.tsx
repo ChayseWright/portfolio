@@ -32,31 +32,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
     <header 
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#0a160f]/95 backdrop-blur-md border-b border-[#CBA95D]/30 shadow-xl shadow-black/40 py-3' 
+          ? 'bg-black/95 backdrop-blur-md border-b border-white/20 shadow-xl shadow-black/80 py-3' 
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand / Logo (Sharp, Regal Serif Crest) */}
+        {/* Brand / Logo (Sharp, Architectural Monogram Crest) */}
         <a 
           href="#" 
           className="group flex items-center gap-3.5 transition-transform"
         >
-          <div className="w-10 h-10 bg-[#2C5F3E] border border-[#CBA95D] flex items-center justify-center shadow-sm">
-            <span className="font-serif font-bold text-[#CBA95D] text-sm tracking-wider">
+          <div className="w-10 h-10 bg-black border border-white flex items-center justify-center shadow-sm">
+            <span className="font-serif font-bold text-white text-sm tracking-wider">
               CW
             </span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-serif font-bold text-[#F1F1F1] tracking-wide text-base group-hover:text-[#CBA95D] transition-colors">
+              <span className="font-serif font-bold text-white tracking-wide text-base group-hover:text-neutral-300 transition-colors">
                 {portfolioData.personal.name}
               </span>
-              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]/50">
+              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-black text-white border border-white/50">
                 BYU MechE
               </span>
             </div>
-            <span className="text-xs font-serif italic text-[#DDC6A4] tracking-normal">
+            <span className="text-xs font-serif italic text-neutral-400 tracking-normal">
               Neuromechanics & BCI Laboratory
             </span>
           </div>
@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
             <a
               key={link.label}
               href={link.href}
-              className="px-3.5 py-1.5 text-sm text-[#F1F1F1]/80 hover:text-[#CBA95D] hover:bg-[#162e20] transition-all tracking-wide border-b-2 border-transparent hover:border-[#CBA95D]"
+              className="px-3.5 py-1.5 text-sm text-neutral-300 hover:text-white hover:bg-neutral-900 transition-all tracking-wide border-b-2 border-transparent hover:border-white"
             >
               {link.label}
             </a>
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
             href={portfolioData.personal.links.github}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-[#DDC6A4] hover:text-[#CBA95D] hover:bg-[#162e20] transition-all border border-transparent hover:border-[#CBA95D]/30"
+            className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all border border-transparent hover:border-white/30"
             title="GitHub Profile"
           >
             <GithubIcon className="w-4 h-4" />
@@ -89,9 +89,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
           <button
             onClick={onOpenCv}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-semibold tracking-wider uppercase bg-[#2C5F3E] hover:bg-[#234d32] text-[#F1F1F1] border border-[#CBA95D] shadow-md transition-all hover:border-[#F1F1F1]"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-semibold tracking-wider uppercase bg-white hover:bg-neutral-200 text-black border border-white shadow-md transition-all"
           >
-            <FileDown className="w-3.5 h-3.5 text-[#CBA95D]" />
+            <FileDown className="w-3.5 h-3.5 text-black" />
             <span>Curriculum Vitae</span>
           </button>
         </div>
@@ -100,15 +100,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={onOpenCv}
-            className="p-2 text-[#CBA95D] bg-[#2C5F3E] border border-[#CBA95D]/50 text-xs"
+            className="p-2 text-black bg-white border border-white text-xs"
             title="CV"
           >
-            <FileDown className="w-4 h-4" />
+            <FileDown className="w-4 h-4 text-black" />
           </button>
           
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#DDC6A4] hover:text-[#CBA95D]"
+            className="p-2 text-neutral-300 hover:text-white"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -118,26 +118,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden px-4 pt-3 pb-6 bg-[#0a160f]/98 border-b border-[#CBA95D]/40 font-serif">
+        <div className="md:hidden px-4 pt-3 pb-6 bg-black/98 border-b border-white/30 font-serif">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2 text-sm text-[#F1F1F1] hover:text-[#CBA95D] hover:bg-[#162e20] border-l-2 border-transparent hover:border-[#CBA95D]"
+                className="flex items-center gap-3 px-3 py-2 text-sm text-white hover:text-neutral-300 hover:bg-neutral-900 border-l-2 border-transparent hover:border-white"
               >
-                {link.icon && <link.icon className="w-4 h-4 text-[#CBA95D]" />}
+                {link.icon && <link.icon className="w-4 h-4 text-neutral-400" />}
                 <span>{link.label}</span>
               </a>
             ))}
             
-            <div className="pt-3 border-t border-[#2C5F3E] flex items-center justify-between">
+            <div className="pt-3 border-t border-white/20 flex items-center justify-between">
               <a
                 href={portfolioData.personal.links.byuLab}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-[#CBA95D] flex items-center gap-1.5"
+                className="text-xs text-neutral-300 hover:text-white flex items-center gap-1.5"
               >
                 <span>BYU Neuromechanics Group</span>
                 <ExternalLink className="w-3 h-3" />
@@ -146,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
                 href={portfolioData.personal.links.github}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 text-[#DDC6A4] hover:text-[#CBA95D]"
+                className="p-2 text-neutral-400 hover:text-white"
               >
                 <GithubIcon className="w-4 h-4" />
               </a>

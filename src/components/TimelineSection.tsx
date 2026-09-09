@@ -15,63 +15,63 @@ export const TimelineSection: React.FC = () => {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'education':
-        return <GraduationCap className="w-4 h-4 text-[#CBA95D]" />;
+        return <GraduationCap className="w-4 h-4 text-white" />;
       case 'research':
-        return <FlaskConical className="w-4 h-4 text-[#CBA95D]" />;
+        return <FlaskConical className="w-4 h-4 text-white" />;
       default:
-        return <Briefcase className="w-4 h-4 text-[#CBA95D]" />;
+        return <Briefcase className="w-4 h-4 text-white" />;
     }
   };
 
   return (
-    <section id="experience" className="py-24 relative bg-[#0c1811] border-t border-[#2C5F3E]">
+    <section id="experience" className="py-24 relative bg-black border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16 font-serif">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]/40 mb-3">
-            <Calendar className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-neutral-950 text-neutral-300 border border-white/30 mb-3">
+            <Calendar className="w-3.5 h-3.5 text-neutral-400" />
             <span>ACADEMIC TRAJECTORY</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F1F1F1] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
             Education & Appointments
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#DDC6A4]">
+          <p className="mt-2 text-sm sm:text-base text-neutral-400">
             Doctoral scholarship, research experience, and engineering background within the Department of Mechanical Engineering at Brigham Young University.
           </p>
         </div>
 
         {/* Timeline Flow (Sharp Architectural Lines) */}
-        <div className="relative border-l-2 border-[#2C5F3E] ml-4 sm:ml-8 space-y-10">
+        <div className="relative border-l-2 border-white/20 ml-4 sm:ml-8 space-y-10">
           {timeline.map((item: TimelineItem) => (
             <div key={item.id} className="relative pl-8 sm:pl-10">
               
               {/* Sharp Square Node */}
-              <div className="absolute -left-[17px] top-1.5 w-8 h-8 bg-[#0c1811] border-2 border-[#CBA95D] flex items-center justify-center shadow-md">
+              <div className="absolute -left-[17px] top-1.5 w-8 h-8 bg-black border-2 border-white flex items-center justify-center shadow-md">
                 {getTypeIcon(item.type)}
               </div>
 
               {/* Card Content (Sharp Rectangular Box) */}
-              <div className="p-6 sm:p-7 bg-[#0e1f16] border border-[#2C5F3E] hover:border-[#CBA95D] transition-all font-serif">
+              <div className="p-6 sm:p-7 bg-neutral-950 border border-white/20 hover:border-white transition-all font-serif">
                 
                 {/* Header row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                   <div>
-                    <h3 className="text-lg sm:text-xl font-serif font-bold text-[#F1F1F1]">
+                    <h3 className="text-lg sm:text-xl font-serif font-bold text-white">
                       {item.role}
                     </h3>
-                    <p className="text-sm font-serif font-semibold text-[#CBA95D]">
+                    <p className="text-sm font-serif font-semibold text-neutral-300">
                       {item.organization}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 sm:text-right">
-                    <span className="px-2.5 py-1 text-xs font-mono bg-[#162e20] text-[#F1F1F1] border border-[#2C5F3E] flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#CBA95D]" />
+                    <span className="px-2.5 py-1 text-xs font-mono bg-black text-white border border-white/30 flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-neutral-400" />
                       {item.period}
                     </span>
-                    <span className="text-xs font-serif text-[#DDC6A4] flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#CBA95D]" />
+                    <span className="text-xs font-serif text-neutral-400 flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-neutral-400" />
                       {item.location}
                     </span>
                   </div>
@@ -80,8 +80,8 @@ export const TimelineSection: React.FC = () => {
                 {/* Bulleted Points */}
                 <ul className="space-y-2 mt-4">
                   {item.description.map((desc, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-[#F1F1F1]/85">
-                      <span className="w-1.5 h-1.5 bg-[#CBA95D] mt-1.5 shrink-0" />
+                    <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-neutral-300">
+                      <span className="w-1.5 h-1.5 bg-white mt-1.5 shrink-0" />
                       <span>{desc}</span>
                     </li>
                   ))}
@@ -89,11 +89,11 @@ export const TimelineSection: React.FC = () => {
 
                 {/* Tag Pills */}
                 {item.skills && item.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-5 pt-4 border-t border-[#2C5F3E]">
+                  <div className="flex flex-wrap gap-1.5 mt-5 pt-4 border-t border-white/20">
                     {item.skills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-2.5 py-0.5 text-xs font-serif bg-[#162e20] text-[#DDC6A4] border border-[#2C5F3E]"
+                        className="px-2.5 py-0.5 text-xs font-serif bg-neutral-900 text-neutral-300 border border-white/20"
                       >
                         {skill}
                       </span>

@@ -41,19 +41,19 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative bg-[#0c1811] border-t border-[#2C5F3E]">
+    <section id="contact" className="py-24 relative bg-black border-t border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16 font-serif">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-[#2C5F3E] text-[#CBA95D] border border-[#CBA95D]/40 mb-3">
-            <Mail className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-neutral-950 text-neutral-300 border border-white/30 mb-3">
+            <Mail className="w-3.5 h-3.5 text-neutral-400" />
             <span>CONTACT & ACADEMIC COLLABORATION</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F1F1F1] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
             Get in Touch
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#DDC6A4]">
+          <p className="mt-2 text-sm sm:text-base text-neutral-400">
             For research collaborations, graduate inquiries, or dialogues regarding Brain-Computer Interfaces and Neuromechanics.
           </p>
         </div>
@@ -63,63 +63,63 @@ export const ContactSection: React.FC = () => {
           {/* Left: BYU Lab Office & Details */}
           <div className="lg:col-span-5 space-y-6">
             
-            <div className="p-7 bg-[#0e1f16] border border-[#2C5F3E] space-y-6">
+            <div className="p-7 bg-neutral-950 border border-white/20 space-y-6">
               <div>
-                <h3 className="text-xl font-serif font-bold text-[#F1F1F1] mb-1">
+                <h3 className="text-xl font-serif font-bold text-white mb-1">
                   {contact.labName}
                 </h3>
-                <p className="text-xs uppercase tracking-wider text-[#CBA95D]">
+                <p className="text-xs uppercase tracking-wider text-neutral-400">
                   {contact.department} · {contact.institution}
                 </p>
               </div>
 
-              <div className="space-y-4 text-sm text-[#DDC6A4]">
+              <div className="space-y-4 text-sm text-neutral-300">
                 <div className="flex items-start gap-3">
-                  <Building2 className="w-4 h-4 text-[#CBA95D] shrink-0 mt-1" />
+                  <Building2 className="w-4 h-4 text-neutral-400 shrink-0 mt-1" />
                   <div>
-                    <span className="font-semibold text-[#F1F1F1]">Institution:</span> {contact.institution}
+                    <span className="font-semibold text-white">Institution:</span> {contact.institution}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-[#CBA95D] shrink-0 mt-1" />
+                  <MapPin className="w-4 h-4 text-neutral-400 shrink-0 mt-1" />
                   <div>
-                    <span className="font-semibold text-[#F1F1F1]">Location:</span> {contact.location}
+                    <span className="font-semibold text-white">Location:</span> {contact.location}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Mail className="w-4 h-4 text-[#CBA95D] shrink-0 mt-1" />
+                  <Mail className="w-4 h-4 text-neutral-400 shrink-0 mt-1" />
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[#CBA95D] font-mono">{contact.email}</span>
+                    <span className="text-white font-mono">{contact.email}</span>
                     <button
                       onClick={handleCopyEmail}
-                      className="p-1 text-[#DDC6A4] hover:text-[#CBA95D] transition-colors"
+                      className="p-1 text-neutral-400 hover:text-white transition-colors"
                       title="Copy email to clipboard"
                     >
-                      {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#CBA95D]" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedEmail ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Lab Website Link */}
-              <div className="pt-4 border-t border-[#2C5F3E]">
+              <div className="pt-4 border-t border-white/20">
                 <a
                   href={contact.labSite}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#CBA95D] hover:text-[#F1F1F1] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-white hover:text-neutral-300 transition-colors"
                 >
                   <span>Visit BYU Neuromechanics Group</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
             </div>
 
             {/* Academic Availability */}
-            <div className="p-5 bg-[#162e20] border border-[#CBA95D]/40 text-xs text-[#DDC6A4] leading-relaxed">
-              <strong className="text-[#CBA95D] block mb-1 uppercase tracking-wider">Research Availability:</strong>
+            <div className="p-5 bg-neutral-900 border border-white/20 text-xs text-neutral-300 leading-relaxed">
+              <strong className="text-white block mb-1 uppercase tracking-wider">Research Availability:</strong>
               {contact.availability}
             </div>
 
@@ -127,19 +127,19 @@ export const ContactSection: React.FC = () => {
 
           {/* Right: Direct Email Message Form (Sharp Formal Rectangles) */}
           <div className="lg:col-span-7">
-            <div className="p-7 sm:p-8 bg-[#0e1f16] border border-[#2C5F3E]">
-              <h3 className="text-xl font-serif font-bold text-[#F1F1F1] mb-1 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#CBA95D]" />
+            <div className="p-7 sm:p-8 bg-neutral-950 border border-white/20">
+              <h3 className="text-xl font-serif font-bold text-white mb-1 flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-neutral-400" />
                 <span>Send a Direct Message</span>
               </h3>
-              <p className="text-xs text-[#DDC6A4] mb-6">
+              <p className="text-xs text-neutral-400 mb-6">
                 Fill out the fields below to dispatch an email inquiry.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#DDC6A4] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-neutral-400 mb-1.5">
                       Your Name
                     </label>
                     <input
@@ -148,12 +148,12 @@ export const ContactSection: React.FC = () => {
                       placeholder="e.g. Dr. Jane Doe"
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-[#0a160f] border border-[#2C5F3E] text-xs text-[#F1F1F1] placeholder-[#DDC6A4]/40 focus:outline-none focus:border-[#CBA95D]"
+                      className="w-full px-3.5 py-2.5 bg-black border border-white/30 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-white"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#DDC6A4] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-neutral-400 mb-1.5">
                       Your Email Address
                     </label>
                     <input
@@ -162,19 +162,19 @@ export const ContactSection: React.FC = () => {
                       placeholder="e.g. jdoe@institution.edu"
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-[#0a160f] border border-[#2C5F3E] text-xs text-[#F1F1F1] placeholder-[#DDC6A4]/40 focus:outline-none focus:border-[#CBA95D]"
+                      className="w-full px-3.5 py-2.5 bg-black border border-white/30 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-white"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#DDC6A4] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider text-neutral-400 mb-1.5">
                     Subject Area
                   </label>
                   <select
                     value={formState.subject}
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#0a160f] border border-[#2C5F3E] text-xs text-[#F1F1F1] focus:outline-none focus:border-[#CBA95D]"
+                    className="w-full px-3.5 py-2.5 bg-black border border-white/30 text-xs text-white focus:outline-none focus:border-white"
                   >
                     <option value="Academic / Research Inquiry">Academic / Research Inquiry</option>
                     <option value="Research Collaboration">Research Collaboration</option>
@@ -184,7 +184,7 @@ export const ContactSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#DDC6A4] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider text-neutral-400 mb-1.5">
                     Message
                   </label>
                   <textarea
@@ -193,27 +193,27 @@ export const ContactSection: React.FC = () => {
                     placeholder="Enter your inquiry or proposal..."
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#0a160f] border border-[#2C5F3E] text-xs text-[#F1F1F1] placeholder-[#DDC6A4]/40 focus:outline-none focus:border-[#CBA95D]"
+                    className="w-full px-3.5 py-2.5 bg-black border border-white/30 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-white"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-xs text-[#DDC6A4]/60">
+                  <span className="text-xs text-neutral-500">
                     Dispatches via email client
                   </span>
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-[#2C5F3E] hover:bg-[#234d32] text-[#F1F1F1] border border-[#CBA95D] shadow-md transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-white hover:bg-neutral-200 text-black border border-white shadow-md transition-all"
                   >
                     {submitted ? (
                       <>
-                        <Check className="w-4 h-4 text-[#CBA95D]" />
+                        <Check className="w-4 h-4 text-black" />
                         <span>Opening Mail...</span>
                       </>
                     ) : (
                       <>
-                        <Send className="w-4 h-4 text-[#CBA95D]" />
+                        <Send className="w-4 h-4 text-black" />
                         <span>Send Message</span>
                       </>
                     )}
