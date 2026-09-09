@@ -77,14 +77,14 @@ export const ContactSection: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Building2 className="w-4 h-4 text-[#CBA95D] shrink-0 mt-1" />
                   <div>
-                    <span className="font-semibold text-[#F1F1F1]">Office & Lab:</span> {contact.office}, {contact.building}
+                    <span className="font-semibold text-[#F1F1F1]">Institution:</span> {contact.institution}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#CBA95D] shrink-0 mt-1" />
                   <div>
-                    <span className="font-semibold text-[#F1F1F1]">Location:</span> {contact.address}
+                    <span className="font-semibold text-[#F1F1F1]">Location:</span> {contact.location}
                   </div>
                 </div>
 

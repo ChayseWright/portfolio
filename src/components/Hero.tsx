@@ -3,11 +3,11 @@ import {
   ArrowRight, 
   FileText, 
   MapPin, 
-  Cpu, 
-  ChevronDown
+  ChevronDown,
+  Activity
 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
-import { ThreeMechViewer } from './ThreeMechViewer';
+import { NeuralWaveBackground } from './NeuralWaveBackground';
 
 interface HeroProps {
   onOpenCv: () => void;
@@ -17,122 +17,96 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCv }) => {
   const { personal, stats } = portfolioData;
 
   return (
-    <section className="relative pt-28 sm:pt-36 pb-20 overflow-hidden bg-grid-royal">
-      {/* Royal Green atmospheric radiance */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#2C5F3E]/20 blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[350px] bg-[#CBA95D]/10 blur-[130px] pointer-events-none" />
+    <section className="relative pt-32 sm:pt-40 pb-24 overflow-hidden bg-grid-royal border-b border-[#2C5F3E]">
+      {/* Background Neural Signals Animation (EEG/EMG signals drifting behind text) */}
+      <NeuralWaveBackground className="z-0" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column: Personal Narrative & Badges */}
-          <div className="lg:col-span-6 space-y-6">
-            
-            {/* Affiliation Badges (Sharp & Formal) */}
-            <div className="flex flex-wrap items-center gap-2 font-serif">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-wider bg-[#2C5F3E] text-[#F1F1F1] border border-[#CBA95D]/60 shadow-sm">
-                <span className="w-1.5 h-1.5 bg-[#CBA95D]" />
-                BYU Neuromechanics Group
-              </span>
+      {/* Atmospheric Royal Green glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-[#2C5F3E]/20 blur-[150px] pointer-events-none -z-0" />
 
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-wider bg-[#13281a] text-[#CBA95D] border border-[#2C5F3E]">
-                Brain-Computer Interfaces
-              </span>
-            </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Affiliation Badges */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-6 font-serif">
+          <span className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-wider bg-[#2C5F3E] text-[#F1F1F1] border border-[#CBA95D]/60 shadow-sm">
+            <span className="w-1.5 h-1.5 bg-[#CBA95D]" />
+            BYU Neuromechanics Research Group
+          </span>
 
-            {/* Name and Academic Title */}
-            <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-[#F1F1F1] leading-tight">
-                {personal.name}
-              </h1>
-              <p className="mt-2 text-xl font-serif text-[#CBA95D] italic">
-                {personal.title}
-              </p>
-              <p className="text-sm font-serif text-[#DDC6A4] flex items-center gap-1.5 mt-1">
-                <MapPin className="w-3.5 h-3.5 text-[#CBA95D]" />
-                <span>{personal.university} · {personal.location}</span>
-              </p>
-            </div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-wider bg-[#0c1811]/90 text-[#CBA95D] border border-[#2C5F3E]">
+            <Activity className="w-3.5 h-3.5 text-[#CBA95D]" />
+            Brain-Computer Interfaces
+          </span>
 
-            {/* Core Bio Statement */}
-            <div className="space-y-3 text-[#F1F1F1]/90 text-base sm:text-lg leading-relaxed font-serif">
-              <p>
-                Bridging <strong className="text-[#CBA95D] font-semibold">Mechanical Engineering</strong>, <strong className="text-[#F1F1F1] font-semibold">Computational Biomechanics</strong>, and <strong className="text-[#CBA95D] font-semibold">Brain-Computer Interfaces (BCI)</strong>.
-              </p>
-              <p className="text-[#DDC6A4] text-base font-normal">
-                Conducting doctoral research on neural decoding, dynamic neuromuscular modeling, and bio-mechatronic systems within the Department of Mechanical Engineering at Brigham Young University.
-              </p>
-            </div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-wider bg-[#0c1811]/90 text-[#DDC6A4] border border-[#2C5F3E]">
+            Queen's University Alum
+          </span>
+        </div>
 
-            {/* Research Keywords */}
-            <div className="flex flex-wrap gap-2 pt-1 font-serif text-xs">
-              {["Brain-Computer Interfaces", "Neuromechanics", "Motor Decoding", "Biomechanical Modeling", "Bio-Mechatronics"].map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-[#13281a] text-[#DDC6A4] border border-[#2C5F3E]">
-                  {tag}
-                </span>
-              ))}
-            </div>
+        {/* Main Title & Degree */}
+        <div className="space-y-2 mb-6">
+          <h1 className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-[#F1F1F1] leading-tight">
+            {personal.name}
+          </h1>
+          <p className="text-xl sm:text-2xl font-serif text-[#CBA95D] italic">
+            {personal.title}
+          </p>
+          <p className="text-sm font-serif text-[#DDC6A4] flex items-center gap-1.5 pt-1">
+            <MapPin className="w-3.5 h-3.5 text-[#CBA95D]" />
+            <span>{personal.university} · {personal.location}</span>
+          </p>
+        </div>
 
-            {/* Call to Action Buttons (Sharp Rectangles) */}
-            <div className="flex flex-wrap items-center gap-3 pt-3 font-serif">
-              <a
-                href="#research"
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#2C5F3E] hover:bg-[#234d32] text-[#F1F1F1] border border-[#CBA95D] shadow-lg transition-all hover:-translate-y-0.5"
-              >
-                <span>Explore Research</span>
-                <ArrowRight className="w-4 h-4 text-[#CBA95D]" />
-              </a>
+        {/* Narrative Bio */}
+        <div className="max-w-3xl space-y-4 text-[#F1F1F1]/90 text-base sm:text-lg leading-relaxed font-serif bg-[#0a160f]/60 p-6 border-l-4 border-[#CBA95D] backdrop-blur-xs mb-8">
+          <p>
+            Conducting graduate research in the <strong className="text-[#CBA95D] font-semibold">BYU Neuromechanics Research Group</strong> within the Department of Mechanical Engineering.
+          </p>
+          <p className="text-[#DDC6A4] text-base font-normal">
+            Prior to BYU, I completed my Bachelor's in Mechanical Engineering at <strong className="text-[#F1F1F1]">Queen's University in Kingston</strong>. My work focuses on Brain-Computer Interfaces (BCI), neural decoding architectures, and neuromuscular biomechanical modeling.
+          </p>
+        </div>
 
-              <button
-                onClick={onOpenCv}
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#13281a] hover:bg-[#1a3824] text-[#F1F1F1] border border-[#CBA95D]/50 transition-all hover:border-[#CBA95D]"
-              >
-                <FileText className="w-4 h-4 text-[#CBA95D]" />
-                <span>Curriculum Vitae</span>
-              </button>
-            </div>
+        {/* Core Topic Badges */}
+        <div className="flex flex-wrap gap-2 mb-8 font-serif text-xs">
+          {["Brain-Computer Interfaces (BCI)", "Neuromechanics", "Motor Decoding", "Biomechanical Modeling", "EEG & EMG Analysis"].map((tag) => (
+            <span key={tag} className="px-3 py-1 bg-[#102317]/90 text-[#DDC6A4] border border-[#2C5F3E]">
+              {tag}
+            </span>
+          ))}
+        </div>
 
-            {/* Academic Badges Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-[#2C5F3E]">
-              {stats.map((s, idx) => (
-                <div key={idx} className="p-3.5 bg-[#0e1e15] border border-[#2C5F3E]">
-                  <div className="text-base sm:text-lg font-serif font-bold text-[#CBA95D]">
-                    {s.value}
-                  </div>
-                  <div className="text-xs font-serif text-[#DDC6A4] mt-0.5">
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-3 mb-12 font-serif">
+          <a
+            href="#research"
+            className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#2C5F3E] hover:bg-[#234d32] text-[#F1F1F1] border border-[#CBA95D] shadow-lg transition-all"
+          >
+            <span>Explore Research Focus</span>
+            <ArrowRight className="w-4 h-4 text-[#CBA95D]" />
+          </a>
 
-          </div>
+          <button
+            onClick={onOpenCv}
+            className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase bg-[#0c1811] hover:bg-[#162e20] text-[#F1F1F1] border border-[#CBA95D]/50 transition-all hover:border-[#CBA95D]"
+          >
+            <FileText className="w-4 h-4 text-[#CBA95D]" />
+            <span>Curriculum Vitae</span>
+          </button>
+        </div>
 
-          {/* Right Column: Interactive 3D Digital Twin Component */}
-          <div className="lg:col-span-6">
-            <div className="relative">
-              {/* Header Label for 3D Demo */}
-              <div className="mb-3 flex items-center justify-between font-serif">
-                <div className="flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-[#CBA95D]" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#F1F1F1]">
-                    Interactive 3D Biomechatronic Twin
-                  </span>
-                </div>
-                <span className="text-[11px] font-mono text-[#DDC6A4] hidden sm:inline">
-                  Drag to rotate · Scroll to zoom
-                </span>
+        {/* Academic Profile Grid (Fixed overflow: no text ever exits boxes) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-[#2C5F3E]">
+          {stats.map((s, idx) => (
+            <div key={idx} className="p-3.5 bg-[#0e1f16]/90 border border-[#2C5F3E] flex flex-col justify-center min-w-0">
+              <div className="text-sm sm:text-base font-serif font-bold text-[#CBA95D] truncate">
+                {s.value}
               </div>
-
-              {/* Three.js Canvas */}
-              <ThreeMechViewer />
-
-              <p className="mt-2.5 text-xs font-serif italic text-[#DDC6A4] text-center">
-                Digital twin of bio-mechatronic upper-limb articulation with real-time neural activation telemetry.
-              </p>
+              <div className="text-xs font-serif text-[#DDC6A4] mt-0.5 truncate">
+                {s.label}
+              </div>
             </div>
-          </div>
-
+          ))}
         </div>
 
         {/* Scroll Indicator */}
@@ -148,6 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCv }) => {
             <ChevronDown className="w-4 h-4 text-[#CBA95D] animate-bounce" />
           </a>
         </div>
+
       </div>
     </section>
   );

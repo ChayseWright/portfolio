@@ -13,9 +13,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes('three')) {
-            return 'three';
-          }
           if (id.includes('react') || id.includes('lucide-react')) {
             return 'vendor';
           }

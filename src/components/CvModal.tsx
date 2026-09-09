@@ -90,10 +90,10 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
 
               <div className="flex justify-between items-start pt-2">
                 <div>
-                  <div className="font-bold text-[#F1F1F1]">B.S. in Mechanical Engineering</div>
-                  <div className="text-[#DDC6A4]">Brigham Young University, Provo, UT</div>
+                  <div className="font-bold text-[#F1F1F1]">B.Sc. in Mechanical Engineering</div>
+                  <div className="text-[#DDC6A4]">Queen's University, Kingston, Ontario, Canada</div>
                 </div>
-                <div className="text-xs font-mono text-[#CBA95D]">2019 – 2023</div>
+                <div className="text-xs font-mono text-[#CBA95D]">2018 – 2023</div>
               </div>
             </div>
           </section>
@@ -113,7 +113,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
                 <div className="text-[#DDC6A4] text-xs mb-2">BYU Neuromechanics Research Group</div>
                 <ul className="list-disc list-inside space-y-1 text-xs text-[#F1F1F1]/85">
                   <li>Conducting doctoral research in Brain-Computer Interfaces (BCI), neuromuscular motor control, and biomechanical modeling.</li>
-                  <li>Developing real-time neural decoding pipelines for continuous motor intention from electrophysiological recordings.</li>
+                  <li>Developing computational algorithms for neural decoding and dynamic musculoskeletal analysis.</li>
                 </ul>
               </div>
             </div>
@@ -149,18 +149,14 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
               <Wrench className="w-4 h-4 text-[#CBA95D]" />
               <span>Technical Skills</span>
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div className="p-3 bg-[#0e1f16] border border-[#2C5F3E]">
                 <span className="font-bold text-[#CBA95D] block mb-1">Neuromechanics & BCI:</span>
-                <span className="text-[#DDC6A4]">EEG/EMG signal processing, Brain-Computer Interfaces, Biomechanical modeling (OpenSim).</span>
-              </div>
-              <div className="p-3 bg-[#0e1f16] border border-[#2C5F3E]">
-                <span className="font-bold text-[#CBA95D] block mb-1">CAD & Mechanical:</span>
-                <span className="text-[#DDC6A4]">SolidWorks, Finite Element Analysis (FEA), Rapid Prototyping, Mechanism Design.</span>
+                <span className="text-[#DDC6A4]">Brain-Computer Interfaces, EEG/EMG signal processing, Biomechanical modeling (OpenSim).</span>
               </div>
               <div className="p-3 bg-[#0e1f16] border border-[#2C5F3E]">
                 <span className="font-bold text-[#CBA95D] block mb-1">Mechatronics & Control:</span>
-                <span className="text-[#DDC6A4]">MATLAB/Simulink, Embedded Systems (C/C++), Sensors & Instrumentation (DAQ).</span>
+                <span className="text-[#DDC6A4]">MATLAB & Simulink, Dynamic Systems, Sensors & DAQ Instrumentation.</span>
               </div>
               <div className="p-3 bg-[#0e1f16] border border-[#2C5F3E]">
                 <span className="font-bold text-[#CBA95D] block mb-1">Computation & Programming:</span>
