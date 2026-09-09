@@ -73,10 +73,10 @@ export const portfolioData = {
     location: "Provo, Utah, USA",
     email: "chaysew@gmail.com",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
-    bioHeadline: "Mechanical Engineering · Neuromechanics · Brain-Computer Interfaces (BCI)",
+    bioHeadline: "Mechanical Engineering · Tremor Characterisation & Decomposition · Neuromechanics · BCI",
     bioParagraphs: [
-      "I am a Mechanical Engineering Ph.D. student (2025–present) at Brigham Young University conducting research within the BYU Neuromechanics Research Group. Prior to BYU, I completed my Bachelor's degree in Mechanical Engineering at Queen's University in Kingston (2018–2023).",
-      "My core research interests center on Brain-Computer Interfaces (BCI), neuromuscular motor control, and biomechanical modeling."
+      "I am a Mechanical Engineering Ph.D. student (2025–present) at Brigham Young University conducting research within the BYU Neuromechanics Research Group. Prior to BYU, I completed my Bachelor's degree in Mechanical Engineering at Queen's University (2018–2023).",
+      "My primary research focus centers on tremor characterisation and decomposition for Essential Tremor and Parkinson's Disease, investigating neuromuscular oscillations and dynamic motor unit behavior. Additionally, my research interests include Brain-Computer Interfaces (BCI), neural decoding, and dynamic systems control."
     ],
     resumePdfUrl: "#",
     links: {
@@ -91,57 +91,59 @@ export const portfolioData = {
 
   stats: [
     { label: "Current Program", value: "Ph.D. Student" },
-    { label: "Graduate Lab", value: "Neuromechanics" },
-    { label: "Graduate School", value: "BYU" },
-    { label: "Undergraduate", value: "Queen's Univ." }
+    { label: "Primary Focus", value: "Tremor Decomposition" },
+    { label: "Pathologies", value: "ET & Parkinson's" },
+    { label: "Research Interest", value: "BCI Systems" }
   ],
 
   researchThrusts: [
     {
-      id: "bci-interfaces",
-      title: "Brain-Computer Interfaces (BCI)",
-      tagline: "Cortical and neuromuscular interface architectures for motor decoding",
-      description: "Investigating decoding architectures for electrophysiological signals (EEG/EMG) to interface biological neural command with mechanical and assistive systems.",
+      id: "tremor-decomposition",
+      title: "Tremor Characterisation & Decomposition",
+      tagline: "Primary Doctoral Focus · Essential Tremor & Parkinson's Disease",
+      description: "Investigating quantitative electrophysiological decomposition and characterisation of pathological involuntary tremors in Essential Tremor (ET) and Parkinson's Disease (PD). Combining surface electromyography (sEMG), kinematic tracking, and signal decomposition to isolate underlying central oscillator dynamics from peripheral mechanical resonances.",
       highlights: [
-        "Real-time signal processing and feature extraction",
-        "Neuromotor intent classification and continuous kinematics",
-        "Interface synthesis and latency considerations"
+        "Electrophysiological motor unit decomposition in pathological tremors",
+        "Frequency-domain differentiation between Essential Tremor and Parkinsonian tremor",
+        "Coupling between central neural drives and mechanical limb kinematics",
+        "Biomechanical tremor filtering and adaptive suppression dynamics"
       ],
       methodologies: [
-        "EEG / HD-sEMG",
-        "Neural Signal Processing",
+        "sEMG Decomposition",
+        "Kinematic Spectral Analysis",
+        "Neuromuscular Modeling",
+        "Movement Disorder Biomechanics"
+      ],
+      metrics: [
+        { label: "Primary Focus", value: "Essential Tremor" },
+        { label: "Pathology", value: "Parkinson's" },
+        { label: "Methodology", value: "Decomposition" }
+      ],
+      iconName: "Activity"
+    },
+    {
+      id: "bci-interfaces",
+      title: "Brain-Computer Interfaces (BCI)",
+      tagline: "Research Interest · Neural decoding and closed-loop motor interfaces",
+      description: "Exploring neural decoding architectures and electrophysiological signal processing (EEG/EMG) to interface biological motor command with computational and assistive dynamic systems as an active research interest.",
+      highlights: [
+        "Parametric and deep neural decoding from multi-channel EEG",
+        "Neuromotor intent classification and continuous kinematics",
+        "Investigation of cognitive state (drowsiness/attention) on interface robustness",
+        "Closed-loop bio-potential communication frameworks"
+      ],
+      methodologies: [
+        "EEG Signal Processing",
         "Machine Learning",
+        "Neural Feature Extraction",
         "Closed-Loop Control"
       ],
       metrics: [
-        { label: "Domain", value: "Neural BCI" },
-        { label: "Decoding", value: "Motor Intent" },
+        { label: "Research Area", value: "Neural BCI" },
+        { label: "Investigation", value: "Motor Decoding" },
         { label: "Signals", value: "EEG / EMG" }
       ],
       iconName: "BrainCircuit"
-    },
-    {
-      id: "neuromechanics-dynamics",
-      title: "Neuromechanics & Biomechanical Dynamics",
-      tagline: "Characterizing neuromotor control through dynamic modeling",
-      description: "Applying rigid-body dynamics, musculoskeletal simulations, and experimental biomechanics to understand how the nervous system regulates limb stabilization and adapts to perturbations.",
-      highlights: [
-        "Dynamic modeling of musculoskeletal structures",
-        "Kinematic and kinetic motion capture analysis",
-        "Joint impedance and neuromuscular control"
-      ],
-      methodologies: [
-        "Musculoskeletal Dynamics",
-        "Biomechanical Modeling",
-        "Motion Capture",
-        "Kinematic Analysis"
-      ],
-      metrics: [
-        { label: "Domain", value: "Neuromechanics" },
-        { label: "Dynamics", value: "Multi-Body" },
-        { label: "Simulation", value: "Musculoskeletal" }
-      ],
-      iconName: "Activity"
     }
   ] as ResearchThrust[],
 
@@ -221,12 +223,12 @@ export const portfolioData = {
 
   skills: {
     bciAndNeuro: [
-      "Brain-Computer Interfaces (BCI)",
-      "EEG / EMG Signal Processing",
+      "Tremor Characterisation & Decomposition",
+      "sEMG / EEG Signal Processing",
+      "Motor Unit Decomposition",
       "Biomechanical Modeling (OpenSim)",
-      "Motion Capture & Kinematic Analysis",
-      "Bio-potential Instrumentation",
-      "Lab Streaming Layer (LSL)"
+      "Motion Capture & Kinematics",
+      "Brain-Computer Interfaces (BCI)"
     ],
     mechatronicsAndControl: [
       "MATLAB & Simulink",
@@ -255,9 +257,10 @@ export const portfolioData = {
       description: [
         "Department of Mechanical Engineering, Brigham Young University.",
         "Graduate researcher in the BYU Neuromechanics Research Group.",
-        "Primary Focus: Brain-Computer Interfaces (BCI), Neuromechanics, Biomechanical Modeling."
+        "Primary Focus: Tremor Characterisation & Decomposition for Essential Tremor and Parkinson's Disease.",
+        "Research Interests: Brain-Computer Interfaces (BCI), neural decoding, and neuromuscular motor control."
       ],
-      skills: ["BCI", "Neuromechanics", "Biomechanical Modeling", "Mechanical Engineering"]
+      skills: ["Tremor Decomposition", "Essential Tremor", "Parkinson's Disease", "BCI", "Neuromechanics"]
     },
     {
       id: "time-2",
@@ -267,10 +270,10 @@ export const portfolioData = {
       location: "Provo, UT",
       period: "2025 – Present",
       description: [
-        "Conducting doctoral research in neural interfaces and neuromotor biomechanics.",
-        "Developing computational algorithms for neural decoding and dynamic musculoskeletal analysis."
+        "Investigating pathological tremor dynamics and decomposition in Essential Tremor and Parkinson's Disease.",
+        "Developing analytical frameworks for motor unit decomposition and neural interface decoding."
       ],
-      skills: ["BCI", "Neural Decoding", "Biomechanics"]
+      skills: ["Tremor Characterisation", "sEMG Decomposition", "Neural Interfaces"]
     },
     {
       id: "time-3",

@@ -47,19 +47,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
               CW
             </span>
           </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-serif font-normal text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors">
-                {portfolioData.personal.name}
-              </span>
-              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-[#1E1E24] text-[#9CA3AF] border border-[#27272A]">
-                BYU MechE
-              </span>
-            </div>
-            <span className="text-xs font-serif italic text-[#9CA3AF] tracking-normal">
-              Neuromechanics & BCI Laboratory
-            </span>
-          </div>
+          <span className="font-serif font-normal text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors">
+            {portfolioData.personal.name}
+          </span>
         </a>
 
         {/* Desktop Navigation Links */}

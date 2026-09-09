@@ -17,7 +17,7 @@ export const ContactSection: React.FC = () => {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
-    subject: 'Academic / Research Inquiry',
+    subject: 'Tremor Research Collaboration (ET / PD)',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -54,7 +54,7 @@ export const ContactSection: React.FC = () => {
             Get in Touch
           </h2>
           <p className="mt-2 text-sm sm:text-base text-[#9CA3AF]">
-            For research collaborations, graduate inquiries, or dialogues regarding Brain-Computer Interfaces and Neuromechanics.
+            For research collaborations, graduate inquiries, or dialogues regarding Tremor Characterisation, Neuromechanics, and Brain-Computer Interfaces.
           </p>
         </div>
 
@@ -176,10 +176,10 @@ export const ContactSection: React.FC = () => {
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] focus:outline-none focus:border-[#FFFFFF] focus:bg-[#1E1E24] transition-colors"
                   >
+                    <option value="Tremor Research Collaboration (ET / PD)">Tremor Research Collaboration (ET / PD)</option>
                     <option value="Academic / Research Inquiry">Academic / Research Inquiry</option>
-                    <option value="Research Collaboration">Research Collaboration</option>
-                    <option value="Neuromechanics & BCI Discussion">Neuromechanics & BCI Discussion</option>
-                    <option value="Student Mentorship">Student Mentorship</option>
+                    <option value="Brain-Computer Interface Discussion">Brain-Computer Interface Discussion</option>
+                    <option value="Student Mentorship / Dialogue">Student Mentorship / Dialogue</option>
                   </select>
                 </div>
 

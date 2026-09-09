@@ -83,7 +83,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
                 <div>
                   <div className="font-bold text-[#FFFFFF]">Ph.D. in Mechanical Engineering</div>
                   <div className="text-[#9CA3AF]">Brigham Young University, Provo, UT</div>
-                  <div className="text-xs text-[#9CA3AF] italic">Specialization: Neuromechanics, Brain-Computer Interfaces (BCI)</div>
+                  <div className="text-xs text-[#9CA3AF] italic">Specialization: Tremor Characterisation & Decomposition (Essential Tremor & Parkinson's Disease); Brain-Computer Interfaces (BCI)</div>
                 </div>
                 <div className="text-xs font-mono text-[#F4F4F5]">2025 – Present</div>
               </div>
@@ -112,8 +112,8 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="text-[#9CA3AF] text-xs mb-2">BYU Neuromechanics Research Group</div>
                 <ul className="list-disc list-inside space-y-1 text-xs text-[#9CA3AF]">
-                  <li>Conducting doctoral research in Brain-Computer Interfaces (BCI), neuromuscular motor control, and biomechanical modeling.</li>
-                  <li>Developing computational algorithms for neural decoding and dynamic musculoskeletal analysis.</li>
+                  <li>Investigating pathological tremor dynamics and decomposition in Essential Tremor and Parkinson's Disease.</li>
+                  <li>Analyzing neural decoding and dynamic musculoskeletal systems with research interest in Brain-Computer Interfaces (BCI).</li>
                 </ul>
               </div>
             </div>
@@ -151,8 +151,8 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div className="p-3 bg-[#121215] border border-[#27272A]">
-                <span className="font-bold text-[#FFFFFF] block mb-1">Neuromechanics & BCI:</span>
-                <span className="text-[#9CA3AF]">Brain-Computer Interfaces, EEG/EMG signal processing, Biomechanical modeling (OpenSim).</span>
+                <span className="font-bold text-[#FFFFFF] block mb-1">Tremor & Neuromechanics:</span>
+                <span className="text-[#9CA3AF]">Tremor decomposition (ET/PD), sEMG/EEG signal processing, Biomechanical modeling, BCI.</span>
               </div>
               <div className="p-3 bg-[#121215] border border-[#27272A]">
                 <span className="font-bold text-[#FFFFFF] block mb-1">Mechatronics & Control:</span>

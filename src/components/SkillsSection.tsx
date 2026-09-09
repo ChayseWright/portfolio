@@ -12,7 +12,7 @@ export const SkillsSection: React.FC = () => {
 
   const categories = [
     {
-      title: "Brain-Computer Interfaces & Neuromechanics",
+      title: "Tremor & Neuromechanical Analysis",
       icon: BrainCircuit,
       items: skills.bciAndNeuro
     },

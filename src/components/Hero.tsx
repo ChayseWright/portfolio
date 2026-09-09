@@ -48,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCv }) => {
             I am a Mechanical Engineering Ph.D. student (2025–present) at Brigham Young University conducting research in the <span className="text-[#FFFFFF]">BYU Neuromechanics Research Group</span>. Prior to BYU, I completed my Bachelor's degree in Mechanical Engineering at <span className="text-[#FFFFFF]">Queen's University</span> (2018–2023).
           </p>
           <p className="text-[#9CA3AF]">
-            My research investigates Brain-Computer Interfaces (BCI), neuromuscular motor control, and computational biomechanical modeling to characterize neural dynamics and interface electrophysiological command with dynamic systems.
+            My primary research focus is in tremor characterisation and decomposition for Essential Tremor and Parkinson's Disease, investigating neuromuscular oscillations and dynamic motor unit behavior. Additionally, my research interests include Brain-Computer Interfaces (BCI) and neural decoding.
           </p>
         </div>
 
