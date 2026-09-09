@@ -1,8 +1,6 @@
-import React from 'react';
 import { 
   ArrowRight, 
   FileText, 
-  MapPin, 
   ChevronDown
 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
@@ -36,19 +34,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCv }) => {
           {personal.name}
         </h1>
 
-        {/* Title & Affiliation */}
+        {/* Title & Affiliation (No address) */}
         <p className="text-xl sm:text-2xl text-[#F4F4F5] italic mb-2 font-normal">
           {personal.title}
         </p>
-        <p className="text-sm text-[#9CA3AF] flex items-center gap-1.5 mb-8 font-normal">
-          <MapPin className="w-3.5 h-3.5 text-[#9CA3AF] shrink-0" />
-          <span>{personal.lab} · {personal.university} · {personal.location}</span>
+        <p className="text-sm text-[#9CA3AF] mb-8 font-normal">
+          <span>{personal.lab} · {personal.university}</span>
         </p>
 
         {/* Polished & Concise Text Overview (Unbolded, clean typography) */}
         <div className="space-y-4 text-base sm:text-lg text-[#F4F4F5] leading-relaxed max-w-3xl mb-10 font-normal">
           <p>
-            I am a Mechanical Engineering Ph.D. student (2025–present) at Brigham Young University conducting research in the <span className="text-[#FFFFFF]">BYU Neuromechanics Research Group</span>. Prior to BYU, I completed my Bachelor's degree in Mechanical Engineering at <span className="text-[#FFFFFF]">Queen's University</span> in Kingston, Ontario (2018–2023).
+            I am a Mechanical Engineering Ph.D. student (2025–present) at Brigham Young University conducting research in the <span className="text-[#FFFFFF]">BYU Neuromechanics Research Group</span>. Prior to BYU, I completed my Bachelor's degree in Mechanical Engineering at <span className="text-[#FFFFFF]">Queen's University</span> (2018–2023).
           </p>
           <p className="text-[#9CA3AF]">
             My research investigates Brain-Computer Interfaces (BCI), neuromuscular motor control, and computational biomechanical modeling to characterize neural dynamics and interface electrophysiological command with dynamic systems.
