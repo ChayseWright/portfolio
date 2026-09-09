@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, Cpu, Wrench } from 'lucide-react';
+import { X, ExternalLink, Cpu, Wrench, Layers } from 'lucide-react';
 import { GithubIcon, YoutubeIcon, ColabIcon } from './Icons';
 import type { Project } from '../data/portfolioData';
 
@@ -91,6 +91,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               </p>
             </div>
           </div>
+
+          {/* Experimental Results & Visualizations (if image exists) */}
+          {project.imageUrl && (
+            <div className="space-y-3 pt-2">
+              <h4 className="text-xs uppercase tracking-widest text-[#FFFFFF] flex items-center gap-2 font-bold">
+                <Layers className="w-4 h-4 text-[#9CA3AF]" />
+                <span>Experimental Results & Latent Dynamics</span>
+              </h4>
+              <div className="border border-[#27272A] bg-[#09090B] p-2 overflow-hidden">
+                <img
+                  src={project.imageUrl}
+                  alt={`${project.title} Experimental Results`}
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+          )}
 
           {/* Tools & Methodologies (No checkmarks) */}
           <div className="space-y-3">

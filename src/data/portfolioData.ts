@@ -158,9 +158,9 @@ export const portfolioData = {
       shortDesc: "SOTA calibration-free Motor Imagery BCI combining Deep Koopman Operator spectral linearization, Vapnik's Statistical Invariants (LUSI), and biophysical PINN volume conduction constraints.",
       fullDesc: "Tackled the foundational cross-subject calibration bottleneck in non-invasive Brain-Computer Interfaces by formulating neural decoding as a continuous-time dynamical system with finite-dimensional Koopman observable manifolds. Engineered a spatio-temporal neural encoder paired with a learnable linear Koopman transition operator K in R^{K x K}, constraining eigenvalues to stable dissipative poles within the complex unit disk (|lambda| <= 1) to isolate invariant mu (8-12 Hz) and beta (13-30 Hz) sensorimotor oscillations across subjects. Integrated Vladimir Vapnik's Learning Using Statistical Invariants (LUSI) paradigm to constrain the scarce-sample optimization space via empirical expectation predicates (observable covariance energy conservation and spectral damping ratios) alongside physics-informed (PINN) Current Source Density volume conduction penalties. Achieved robust cross-subject transfer with as few as 2-5 calibration trials per class, dramatically outperforming standard unconstrained deep architectures.",
       metrics: [
-        { label: "Calibration", value: "2–5 Trials/Class" },
-        { label: "Theory", value: "Koopman & Vapnik LUSI" },
-        { label: "Hardware", value: "Colab TPU/GPU Ready" }
+        { label: "Few-Shot Acc.", value: "92.00% (5-Shot)" },
+        { label: "Baseline Gain", value: "+3.00% vs CNN" },
+        { label: "Hardware", value: "T4 GPU (Colab)" }
       ],
       tools: [
         "PyTorch",
@@ -170,6 +170,7 @@ export const portfolioData = {
         "MOABB Benchmark",
         "MNE-Python"
       ],
+      imageUrl: "/images/koopman_lusi_results.png",
       githubUrl: "https://github.com/ChayseWright/portfolio/tree/main/src/bci_engine",
       colabUrl: "https://colab.research.google.com/github/ChayseWright/portfolio/blob/main/notebooks/koopman_lusi_bci_showcase.ipynb",
       featured: true
