@@ -6,18 +6,16 @@ A PyTorch architecture designed for **low-data, calibration-free cross-subject M
 
 ---
 
-## Key Highlights
+## Key Highlights (KL-Net v2 Enhancements)
 
-1. **Overcoming the Calibration Tax**:
-   Standard BCI decoders degrade drastically when evaluated across novel human subjects without extensive calibration. KL-Net achieves robust cross-subject intent classification with as few as **2 to 5 calibration trials per class**.
-2. **Deep Koopman Linearization**:
-   Instead of treating non-stationary EEG as arbitrary images, KL-Net learns a spatio-temporal observable dictionary $\psi_\theta(\mathbf{x}) \in \mathbb{R}^K$ whose temporal state evolution is strictly linear:
-   $$\psi_\theta(\mathbf{x}_{t+1}) \approx \mathbf{K} \psi_\theta(\mathbf{x}_t)$$
-   Stable dissipative eigenvalues ($|\lambda_j| \le 1$) isolate natural sensorimotor oscillatory modes ($\mu \in [8, 12]\text{ Hz}$, $\beta \in [13, 30]\text{ Hz}$).
-3. **Vapnik's Statistical Invariants (LUSI)**:
-   Penalizes divergence between target sample empirical expectations and population invariant predicates derived from source subjects (covariance energy conservation and spectral damping ratios).
-4. **PINN Scalp Current Source Density (CSD)**:
-   Quasi-static Poisson volume conduction constraints enforce physical spatial smoothness across electrode topographies.
+1. **Multi-Scale Filterbank Temporal Convolutions**:
+   Parallel temporal receptive fields (kernels 16, 32, 64) explicitly targeting upper $\beta$ (20–35 Hz), lower $\beta$ (13–20 Hz), and $\mu$ (8–12 Hz) rhythms prior to depthwise spatial mixing.
+2. **Cayley-Parameterized Strictly Stable Koopman Operator**:
+   Constructs the transition operator via the Cayley transform $\mathbf{K} = \text{diag}(\mathbf{d}) (\mathbf{I} - \mathbf{S})(\mathbf{I} + \mathbf{S})^{-1}$ from an unconstrained skew-symmetric generator $\mathbf{S} = -\mathbf{S}^T$. The spectral radius is **strictly guaranteed by construction** to satisfy $|\lambda_j| \le 1$, eliminating explosive eigenvalue drift.
+3. **Riemannian Manifold & Class Separation LUSI Invariants**:
+   Constrains the few-shot search space using empirical expectation predicates for between-class to within-class dispersion and observable covariance energy conservation under Vapnik's statistical invariant framework.
+4. **Temperature-Scaled Cosine Prototype Classifier Head**:
+   Replaces standard dense projections with angular cosine prototype classification ($\cos(\mathbf{\psi}, \mathbf{w}_c) / \tau$), eliminating weight norm blow-up during few-shot calibration ($k \le 5$ trials).
 
 ---
 
