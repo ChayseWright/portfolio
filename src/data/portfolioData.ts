@@ -114,8 +114,8 @@ export const portfolioData = {
         "Closed-Loop Control"
       ],
       metrics: [
-        { label: "Domain", value: "BCI" },
-        { label: "Focus", value: "Decoding" },
+        { label: "Domain", value: "Neural BCI" },
+        { label: "Decoding", value: "Motor Intent" },
         { label: "Signals", value: "EEG / EMG" }
       ],
       iconName: "BrainCircuit"
@@ -138,8 +138,8 @@ export const portfolioData = {
       ],
       metrics: [
         { label: "Domain", value: "Neuromechanics" },
-        { label: "Analysis", value: "Dynamics" },
-        { label: "Model", value: "Musculoskeletal" }
+        { label: "Dynamics", value: "Multi-Body" },
+        { label: "Simulation", value: "Musculoskeletal" }
       ],
       iconName: "Activity"
     }
