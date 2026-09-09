@@ -11,31 +11,31 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-black border-t border-white/20 py-12 text-neutral-400 font-serif text-xs">
+    <footer className="bg-[#09090B] border-t border-[#27272A] py-12 text-[#9CA3AF] font-serif text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-[#27272A]">
           
           {/* Left info */}
           <div className="text-center md:text-left space-y-1">
-            <div className="text-white font-serif font-bold text-sm">
+            <div className="text-[#FFFFFF] font-serif font-bold text-sm">
               {personal.name} · Ph.D. Student
             </div>
-            <div className="text-neutral-400">
+            <div className="text-[#9CA3AF]">
               {personal.lab} · {personal.department}
             </div>
-            <div className="text-neutral-500">
+            <div className="text-[#9CA3AF]/70">
               {personal.university} · Provo, UT
             </div>
           </div>
 
-          {/* Center Social Links (Sharp Rectangles) */}
+          {/* Center Social Links */}
           <div className="flex items-center gap-3">
             <a
               href={personal.links.scholar}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-neutral-950 border border-white/20 text-neutral-300 hover:text-white hover:border-white transition-all"
+              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
               title="Google Scholar"
             >
               <span className="font-serif font-bold text-xs">GS</span>
@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
               href={personal.links.github}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-neutral-950 border border-white/20 text-neutral-300 hover:text-white hover:border-white transition-all"
+              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
               title="GitHub"
             >
               <GithubIcon className="w-4 h-4" />
@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
               href={personal.links.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-neutral-950 border border-white/20 text-neutral-300 hover:text-white hover:border-white transition-all"
+              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
               title="LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
 
             <a
               href={personal.links.email}
-              className="p-2.5 bg-neutral-950 border border-white/20 text-neutral-300 hover:text-white hover:border-white transition-all"
+              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
               title="Email"
             >
               <Mail className="w-4 h-4" />
@@ -73,22 +73,22 @@ export const Footer: React.FC = () => {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-950 border border-white/20 text-neutral-300 hover:text-white hover:border-white transition-all uppercase tracking-wider text-[11px]"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all uppercase tracking-wider text-[11px] cursor-pointer"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-4 h-4 text-white" />
+            <ArrowUp className="w-4 h-4 text-[#FFFFFF]" />
           </button>
         </div>
 
         {/* Bottom copyright & attribution */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-neutral-500 text-[11px]">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[#9CA3AF]/80 text-[11px]">
           <div>
             © {new Date().getFullYear()} {personal.name}. Brigham Young University.
           </div>
           
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1 text-neutral-400">
-              <span className="w-1.5 h-1.5 bg-white" />
+            <span className="inline-flex items-center gap-1 text-[#9CA3AF]">
+              <span className="w-1.5 h-1.5 bg-[#FFFFFF]" />
               Cloudflare Pages & GitHub
             </span>
           </div>

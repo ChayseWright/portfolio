@@ -15,73 +15,73 @@ export const ResearchSection: React.FC = () => {
   const getIcon = (name: string) => {
     switch (name) {
       case 'BrainCircuit':
-        return <BrainCircuit className="w-6 h-6 text-[#CBA95D]" />;
+        return <BrainCircuit className="w-6 h-6 text-[#FFFFFF]" />;
       case 'Activity':
-        return <Activity className="w-6 h-6 text-[#CBA95D]" />;
+        return <Activity className="w-6 h-6 text-[#FFFFFF]" />;
       case 'Bot':
-        return <Bot className="w-6 h-6 text-[#CBA95D]" />;
+        return <Bot className="w-6 h-6 text-[#FFFFFF]" />;
       default:
-        return <Cpu className="w-6 h-6 text-[#CBA95D]" />;
+        return <Cpu className="w-6 h-6 text-[#FFFFFF]" />;
     }
   };
 
   return (
-    <section id="research" className="py-24 relative bg-black border-t border-white/20">
+    <section id="research" className="py-24 relative bg-[#09090B] border-t border-[#27272A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-serif uppercase tracking-widest bg-neutral-950 text-neutral-300 border border-white/30 mb-3">
-            <span className="w-1.5 h-1.5 bg-white" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-serif uppercase tracking-widest bg-[#121215] text-[#9CA3AF] border border-[#27272A] mb-3">
+            <span className="w-1.5 h-1.5 bg-[#FFFFFF]" />
             <span>DISSERTATION RESEARCH FOCUS</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FFFFFF] tracking-tight">
             Research Thrusts & Core Interests
           </h2>
-          <p className="mt-3 text-base sm:text-lg font-serif text-neutral-400 leading-relaxed">
+          <p className="mt-3 text-base sm:text-lg font-serif text-[#9CA3AF] leading-relaxed">
             Investigating foundational questions at the intersection of mechanical dynamics, neuroscience, and embedded intelligence within the BYU Neuromechanics Research Group.
           </p>
         </div>
 
-        {/* Thrusts Grid (Sharp Rectangular Cards) */}
+        {/* Thrusts Grid (Subtle Elevated Surface Cards) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {researchThrusts.map((thrust: ResearchThrust, index: number) => (
             <div 
               key={thrust.id}
-              className="group relative bg-neutral-950 border border-white/20 hover:border-white p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-white/5"
+              className="group relative bg-[#121215] border border-[#27272A] hover:border-[#9CA3AF]/40 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300"
             >
               {/* Card Header */}
               <div>
-                <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/20">
-                  <div className="p-2.5 bg-black border border-white/40 text-white">
+                <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#27272A]">
+                  <div className="p-2.5 bg-[#1E1E24] border border-[#27272A] text-[#FFFFFF]">
                     {getIcon(thrust.iconName)}
                   </div>
-                  <span className="text-xs font-serif uppercase tracking-widest text-neutral-400">
+                  <span className="text-xs font-serif uppercase tracking-widest text-[#9CA3AF]">
                     THRUST 0{index + 1}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-serif font-bold text-white group-hover:text-neutral-200 transition-colors mb-2">
+                <h3 className="text-xl font-serif font-bold text-[#F4F4F5] group-hover:text-[#FFFFFF] transition-colors mb-2">
                   {thrust.title}
                 </h3>
-                <p className="text-xs font-serif italic text-neutral-400 mb-4">
+                <p className="text-xs font-serif italic text-[#9CA3AF] mb-4">
                   {thrust.tagline}
                 </p>
 
-                <p className="text-sm font-serif text-neutral-300 leading-relaxed mb-6">
+                <p className="text-sm font-serif text-[#9CA3AF] leading-relaxed mb-6">
                   {thrust.description}
                 </p>
 
                 {/* Key Research Highlights */}
                 <div className="space-y-2.5 mb-6">
-                  <h4 className="text-xs font-serif uppercase tracking-wider text-white flex items-center gap-1.5 font-bold">
-                    <TrendingUp className="w-3.5 h-3.5 text-neutral-400" />
+                  <h4 className="text-xs font-serif uppercase tracking-wider text-[#F4F4F5] flex items-center gap-1.5 font-bold">
+                    <TrendingUp className="w-3.5 h-3.5 text-[#9CA3AF]" />
                     <span>Scientific Focus Areas</span>
                   </h4>
                   <ul className="space-y-2">
                     {thrust.highlights.map((h, hIdx) => (
-                      <li key={hIdx} className="flex items-start gap-2.5 text-xs font-serif text-neutral-300">
-                        <span className="w-1.5 h-1.5 bg-white mt-1.5 shrink-0" />
+                      <li key={hIdx} className="flex items-start gap-2.5 text-xs font-serif text-[#9CA3AF]">
+                        <span className="w-1.5 h-1.5 bg-[#FFFFFF] mt-1.5 shrink-0" />
                         <span>{h}</span>
                       </li>
                     ))}
@@ -90,14 +90,14 @@ export const ResearchSection: React.FC = () => {
 
                 {/* Methodologies Badges */}
                 <div className="mb-6">
-                  <h4 className="text-xs font-serif uppercase tracking-wider text-neutral-400 mb-2 font-bold">
+                  <h4 className="text-xs font-serif uppercase tracking-wider text-[#9CA3AF] mb-2 font-bold">
                     Methodologies
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {thrust.methodologies.map((m, mIdx) => (
                       <span 
                         key={mIdx}
-                        className="px-2.5 py-1 text-xs font-serif bg-black text-neutral-300 border border-white/20"
+                        className="px-2.5 py-1 text-xs font-serif bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A]"
                       >
                         {m}
                       </span>
@@ -107,13 +107,13 @@ export const ResearchSection: React.FC = () => {
               </div>
 
               {/* Metrics Box */}
-              <div className="pt-4 border-t border-white/20 grid grid-cols-3 gap-2 bg-black p-3 border border-white/10">
+              <div className="pt-4 border-t border-[#27272A] grid grid-cols-3 gap-2 bg-[#09090B] p-3 border border-[#27272A]">
                 {thrust.metrics.map((metric, metricIdx) => (
                   <div key={metricIdx} className="text-center">
-                    <div className="text-xs sm:text-sm font-serif font-bold text-white">
+                    <div className="text-xs sm:text-sm font-serif font-bold text-[#FFFFFF]">
                       {metric.value}
                     </div>
-                    <div className="text-[11px] font-serif text-neutral-400 truncate">
+                    <div className="text-[11px] font-serif text-[#9CA3AF] truncate">
                       {metric.label}
                     </div>
                   </div>
@@ -125,16 +125,16 @@ export const ResearchSection: React.FC = () => {
         </div>
 
         {/* Bottom Banner */}
-        <div className="mt-12 p-6 bg-neutral-950 border border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 font-serif">
+        <div className="mt-12 p-6 bg-[#121215] border border-[#27272A] flex flex-col sm:flex-row items-center justify-between gap-4 font-serif">
           <div className="flex items-center gap-3">
-            <div className="w-2.5 h-2.5 bg-white" />
-            <p className="text-sm text-neutral-300">
+            <div className="w-2.5 h-2.5 bg-[#FFFFFF]" />
+            <p className="text-sm text-[#9CA3AF]">
               Doctoral research affiliated with the Department of Mechanical Engineering at Brigham Young University.
             </p>
           </div>
           <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-white hover:text-neutral-300 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-[#FFFFFF] hover:text-[#F4F4F5] transition-colors whitespace-nowrap"
           >
             <span>Inquire About Research</span>
           </a>

@@ -26,24 +26,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#09090B]/85 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-black border border-white/40 shadow-2xl shadow-white/5 font-serif"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#121215] border border-[#27272A] shadow-2xl shadow-black font-serif"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-white/20 bg-neutral-950/95 backdrop-blur-md">
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-[#27272A] bg-[#121215]/95 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 text-xs uppercase tracking-widest bg-neutral-900 text-white border border-white/30">
+            <span className="px-2.5 py-1 text-xs uppercase tracking-widest bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A]">
               {getCategoryLabel(project.category)}
             </span>
-            <span className="text-xs text-neutral-400">Technical Dossier</span>
+            <span className="text-xs text-[#9CA3AF]">Technical Dossier</span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-900 transition-all"
+            className="p-1.5 text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -53,15 +53,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Modal Body */}
         <div className="p-6 md:p-8 space-y-6">
           <div>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-2 leading-tight">
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#FFFFFF] mb-2 leading-tight">
               {project.title}
             </h3>
             {project.subtitle && (
-              <p className="text-sm font-serif italic text-neutral-400">
+              <p className="text-sm font-serif italic text-[#9CA3AF]">
                 {project.subtitle}
               </p>
             )}
-            <p className="mt-3 text-sm sm:text-base text-neutral-300 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-[#9CA3AF] leading-relaxed">
               {project.shortDesc}
             </p>
           </div>
@@ -71,22 +71,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {project.metrics.map((m, idx) => (
               <div 
                 key={idx} 
-                className="p-4 bg-neutral-950 border border-white/20 flex flex-col justify-between"
+                className="p-4 bg-[#09090B] border border-[#27272A] flex flex-col justify-between"
               >
-                <span className="text-xs uppercase tracking-wider text-neutral-400 mb-1">{m.label}</span>
-                <span className="text-lg font-serif font-bold text-white">{m.value}</span>
+                <span className="text-xs uppercase tracking-wider text-[#9CA3AF] mb-1">{m.label}</span>
+                <span className="text-lg font-serif font-bold text-[#FFFFFF]">{m.value}</span>
               </div>
             ))}
           </div>
 
           {/* System Architecture & Overview */}
           <div className="space-y-3 pt-2">
-            <h4 className="text-xs uppercase tracking-widest text-white flex items-center gap-2 font-bold">
-              <Cpu className="w-4 h-4 text-neutral-400" />
+            <h4 className="text-xs uppercase tracking-widest text-[#FFFFFF] flex items-center gap-2 font-bold">
+              <Cpu className="w-4 h-4 text-[#9CA3AF]" />
               <span>System Overview & Mathematical Formulation</span>
             </h4>
-            <div className="p-5 bg-neutral-950 border border-white/20">
-              <p className="text-sm text-neutral-200 leading-relaxed">
+            <div className="p-5 bg-[#09090B] border border-[#27272A]">
+              <p className="text-sm text-[#F4F4F5] leading-relaxed">
                 {project.fullDesc}
               </p>
             </div>
@@ -94,17 +94,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           {/* Tools & Methodologies (No checkmarks) */}
           <div className="space-y-3">
-            <h4 className="text-xs uppercase tracking-widest text-white flex items-center gap-2 font-bold">
-              <Wrench className="w-4 h-4 text-neutral-400" />
+            <h4 className="text-xs uppercase tracking-widest text-[#FFFFFF] flex items-center gap-2 font-bold">
+              <Wrench className="w-4 h-4 text-[#9CA3AF]" />
               <span>Computational Toolstack & Frameworks</span>
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.tools.map((tool, idx) => (
                 <span 
                   key={idx}
-                  className="px-3 py-1.5 text-xs bg-neutral-900 text-neutral-300 border border-white/20 flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-xs bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A] flex items-center gap-1.5"
                 >
-                  <span className="w-1.5 h-1.5 bg-white shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-[#FFFFFF] shrink-0" />
                   <span>{tool}</span>
                 </span>
               ))}
@@ -113,14 +113,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         </div>
 
         {/* Modal Footer */}
-        <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4 border-t border-white/20 bg-neutral-950">
+        <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4 border-t border-[#27272A] bg-[#121215]">
           <div className="flex flex-wrap items-center gap-3">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-semibold text-white bg-black hover:bg-neutral-900 border border-white/40 hover:border-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-semibold text-[#F4F4F5] bg-[#1E1E24] hover:bg-[#FFFFFF] hover:text-[#09090B] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>Source Code</span>
@@ -131,9 +131,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 href={project.demoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-bold text-white bg-black hover:bg-neutral-900 border border-white/40 hover:border-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-bold text-[#F4F4F5] bg-[#1E1E24] hover:bg-[#FFFFFF] hover:text-[#09090B] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer"
               >
-                <YoutubeIcon className="w-4 h-4 text-white" />
+                <YoutubeIcon className="w-4 h-4 text-inherit" />
                 <span>YouTube Simulation Demo</span>
               </a>
             )}
@@ -142,9 +142,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 href={project.colabUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-bold text-white bg-black hover:bg-neutral-900 border border-white/40 hover:border-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-bold text-[#F4F4F5] bg-[#1E1E24] hover:bg-[#FFFFFF] hover:text-[#09090B] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer"
               >
-                <ColabIcon className="w-4 h-4 text-white" />
+                <ColabIcon className="w-4 h-4 text-inherit" />
                 <span>Google Colab Notebook</span>
               </a>
             )}
@@ -153,7 +153,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 href={project.paperUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-semibold text-neutral-300 hover:text-white bg-black border border-white/40 hover:border-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs uppercase tracking-wider font-semibold text-[#9CA3AF] hover:text-[#09090B] bg-[#1E1E24] hover:bg-[#FFFFFF] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>Manuscript</span>
@@ -162,7 +162,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-serif uppercase tracking-wider text-neutral-400 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-white/30 transition-all"
+            className="px-4 py-2 text-xs font-serif uppercase tracking-wider text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] border border-[#27272A] transition-all cursor-pointer"
           >
             Close
           </button>
