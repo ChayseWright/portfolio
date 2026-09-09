@@ -4,8 +4,7 @@ import {
   FlaskConical, 
   Briefcase, 
   Calendar, 
-  MapPin, 
-  CheckCircle2 
+  MapPin 
 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import type { TimelineItem } from '../data/portfolioData';
@@ -82,7 +81,7 @@ export const TimelineSection: React.FC = () => {
                 <ul className="space-y-2 mt-4">
                   {item.description.map((desc, dIdx) => (
                     <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-[#F1F1F1]/85">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#CBA95D] mt-1 shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-[#CBA95D] mt-1.5 shrink-0" />
                       <span>{desc}</span>
                     </li>
                   ))}

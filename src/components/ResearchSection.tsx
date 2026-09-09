@@ -3,7 +3,6 @@ import {
   BrainCircuit, 
   Activity, 
   Bot, 
-  CheckCircle2, 
   TrendingUp,
   Cpu
 } from 'lucide-react';
@@ -81,8 +80,8 @@ export const ResearchSection: React.FC = () => {
                   </h4>
                   <ul className="space-y-2">
                     {thrust.highlights.map((h, hIdx) => (
-                      <li key={hIdx} className="flex items-start gap-2 text-xs font-serif text-[#DDC6A4]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#CBA95D] mt-0.5 shrink-0" />
+                      <li key={hIdx} className="flex items-start gap-2.5 text-xs font-serif text-[#DDC6A4]">
+                        <span className="w-1.5 h-1.5 bg-[#CBA95D] mt-1.5 shrink-0" />
                         <span>{h}</span>
                       </li>
                     ))}
