@@ -6,19 +6,11 @@ Primary entrypoint for executing Leave-One-Subject-Out (LOSO) cross-validation
 benchmarks of Koopman-LUSI-Net against standard BCI baselines across BCI IV-2a,
 PhysioNet Motor Imagery, and Synthetic datasets.
 
-Usage Examples:
----------------
-1. Fast Smoke Test / Demo Mode (<60s on CPU):
-   $ python run_benchmark.py --demo
-
-2. Production BCI Competition IV-2a (All 9 subjects, T4 GPU):
-   $ python run_benchmark.py --dataset bci_iv_2a --device cuda --k_shots 5
-
-3. Automated PhysioNet Evaluation:
-   $ python run_benchmark.py --dataset physionet --subjects 1 2 3 --device cuda
-
-4. Ablation & Baseline Evaluation:
-   $ python run_benchmark.py --dataset bci_iv_2a --models all --output_dir ./results
+Features:
+- Fast Demo Mode (<60s on CPU): --demo
+- Subject-by-Subject / Batched Execution: --subjects 1 2 3
+- Incremental Checkpointing & Automatic Resume: --resume
+- Standalone Checkpoint Parser & Report Aggregator: --aggregate
 """
 
 import os
@@ -29,30 +21,24 @@ import argparse
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-import numpy as np
-import torch
-
-from koopman_lusi.models.koopman_lusi import KoopmanLUSINet
-from koopman_lusi.models.baselines import EEGNet42, ShallowFBCSPNet, RiemannianMDM
-from koopman_lusi.evaluation.loso import run_loso_evaluation
-from koopman_lusi.stats.significance import compute_statistical_significance
-from koopman_lusi.stats.reporting import (
-    export_markdown_table,
-    export_latex_table,
-    plot_accuracy_distributions,
-    plot_koopman_eigenvalues,
-)
-
 
 def set_seed(seed: int = 42) -> None:
     """Sets deterministic random seeds across all libraries."""
     random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
+    try:
+        import numpy as np
+        np.random.seed(seed)
+    except ImportError:
+        pass
+    try:
+        import torch
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+    except ImportError:
+        pass
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -91,6 +77,13 @@ def build_arg_parser() -> argparse.ArgumentParser:
         nargs="+",
         default=None,
         help="Specific subject IDs to evaluate (default: all subjects in dataset)",
+    )
+    parser.add_argument(
+        "--subject_batch",
+        type=int,
+        nargs="+",
+        default=None,
+        help="Alias for --subjects to run a specific batch of subjects",
     )
     parser.add_argument(
         "--models",
@@ -154,6 +147,26 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default=True,
         help="Automatically use synthetic SMR fallback if MOABB download is offline",
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        default=True,
+        help="Automatically resume from existing subject checkpoints in output_dir",
+    )
+    parser.add_argument(
+        "--no_resume",
+        action="store_false",
+        dest="resume",
+        help="Force re-evaluation of all subjects, ignoring existing checkpoints",
+    )
+    parser.add_argument(
+        "--aggregate",
+        "--parse",
+        action="store_true",
+        dest="aggregate",
+        default=False,
+        help="Aggregate and parse all saved subject checkpoints to generate publication tables and figures without training",
+    )
     return parser
 
 
@@ -166,14 +179,18 @@ def validate_args(args: argparse.Namespace) -> None:
 
 def resolve_device(device_choice: str) -> str:
     """Resolves 'auto' hardware accelerator choice to concrete device."""
-    if device_choice == "auto":
-        if torch.cuda.is_available():
-            return "cuda"
-        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-            return "mps"
+    try:
+        import torch
+        if device_choice == "auto":
+            if torch.cuda.is_available():
+                return "cuda"
+            elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+                return "mps"
+            return "cpu"
+        elif device_choice == "cuda":
+            return "cuda" if torch.cuda.is_available() else "cpu"
+    except ImportError:
         return "cpu"
-    elif device_choice == "cuda":
-        return "cuda" if torch.cuda.is_available() else "cpu"
     return device_choice
 
 
@@ -186,6 +203,9 @@ def resolve_models(
     """
     Constructs model factory dictionary for requested architectures.
     """
+    from koopman_lusi.models.koopman_lusi import KoopmanLUSINet
+    from koopman_lusi.models.baselines import EEGNet42, ShallowFBCSPNet, RiemannianMDM
+
     registry = {
         "KL-Net": lambda: KoopmanLUSINet(
             num_channels=num_channels,
@@ -216,6 +236,11 @@ def resolve_models(
             num_channels=num_channels,
             time_samples=time_samples,
         ),
+        "ShallowFBCSP": lambda: ShallowFBCSPNet(
+            num_classes=num_classes,
+            num_channels=num_channels,
+            time_samples=time_samples,
+        ),
         "ShallowFBCSPNet": lambda: ShallowFBCSPNet(
             num_classes=num_classes,
             num_channels=num_channels,
@@ -238,7 +263,6 @@ def resolve_models(
                 break
 
     if len(selected) == 0:
-        # Fallback to KL-Net and baseline
         selected["KL-Net"] = registry["KL-Net"]
         selected["EEGNet-4,2"] = registry["EEGNet-4,2"]
 
@@ -250,6 +274,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = build_arg_parser()
     args = parser.parse_args(argv)
     validate_args(args)
+
+    # Resolve alias
+    if args.subject_batch is not None and args.subjects is None:
+        args.subjects = args.subject_batch
+
+    # 1. Standalone Aggregate & Parse Mode
+    if args.aggregate:
+        print("=" * 78)
+        print("  KOOPMAN-LUSI-NET RESULT AGGREGATOR & PARSER")
+        print(f"  Scanning subject checkpoints in: {args.output_dir}")
+        print("=" * 78)
+        from koopman_lusi.evaluation.aggregate import aggregate_and_report
+        results, stats = aggregate_and_report(
+            output_dir=args.output_dir,
+            baseline_name="EEGNet-4,2",
+            no_figures=args.no_figures,
+        )
+        return 0
 
     set_seed(args.seed)
     device = resolve_device(args.device)
@@ -265,6 +307,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("=" * 78)
     print("  KOOPMAN-LUSI-NET MOTOR IMAGERY BENCHMARK")
     print(f"  Dataset: {args.dataset} | Device: {device} | k-shots: {args.k_shots} | Seed: {args.seed}")
+    print(f"  Subjects: {args.subjects if args.subjects else 'All Cohort'} | Resume: {args.resume}")
     print(f"  Pretrain Epochs: {args.epochs_pretrain} | Adapt Epochs: {args.epochs_adapt}")
     print("=" * 78)
 
@@ -291,12 +334,15 @@ def main(argv: Optional[List[str]] = None) -> int:
     raw_dir = out_dir / "raw"
     tables_dir = out_dir / "tables"
     figures_dir = out_dir / "figures"
+    checkpoints_dir = out_dir / "checkpoints"
     raw_dir.mkdir(parents=True, exist_ok=True)
     tables_dir.mkdir(parents=True, exist_ok=True)
     figures_dir.mkdir(parents=True, exist_ok=True)
+    checkpoints_dir.mkdir(parents=True, exist_ok=True)
 
-    # Execute LOSO Cross-Validation
+    # Execute LOSO Cross-Validation with Checkpoints & Resume
     print("[INFO] Starting Leave-One-Subject-Out few-shot adaptation loop...")
+    from koopman_lusi.evaluation.loso import run_loso_evaluation
     results = run_loso_evaluation(
         models=models_dict,
         dataset_name=args.dataset,
@@ -308,67 +354,21 @@ def main(argv: Optional[List[str]] = None) -> int:
         epochs_adapt=args.epochs_adapt,
         device=device,
         use_synthetic_fallback=args.fallback_synthetic,
+        output_dir=args.output_dir,
+        resume=args.resume,
     )
-    print("[INFO] Cross-validation evaluation completed successfully.")
+    print("[INFO] Evaluation execution completed.")
 
-    # Save raw per-subject results
-    raw_json_path = raw_dir / "benchmark_results.json"
-    with open(raw_json_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
-    print(f"[INFO] Raw results written to: {raw_json_path}")
-
-    # Export CSV accuracy matrix
-    raw_csv_path = raw_dir / "accuracy_matrix.csv"
-    first_model = next(iter(results.keys()))
-    subject_ids = sorted(results[first_model].keys())
-    csv_lines = ["Subject," + ",".join(results.keys())]
-    for s in subject_ids:
-        row = [f"Subject {s}"]
-        for m in results.keys():
-            row.append(f"{results[m][s]['accuracy']*100.0:.2f}")
-        csv_lines.append(",".join(row))
-    with open(raw_csv_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(csv_lines) + "\n")
-
-    # Compute Statistical Significance against EEGNet-4,2 baseline
-    baseline_ref = "EEGNet-4,2" if "EEGNet-4,2" in results else list(results.keys())[-1]
-    stats = compute_statistical_significance(results, baseline_name=baseline_ref)
-
-    # Export Markdown table
-    md_table_path = tables_dir / "benchmark_report.md"
-    export_markdown_table(stats, str(md_table_path))
-    print(f"[INFO] Markdown summary table exported to: {md_table_path}")
-
-    # Export LaTeX booktabs table
-    latex_table_path = tables_dir / "benchmark_table.tex"
-    export_latex_table(stats, str(latex_table_path))
-    print(f"[INFO] LaTeX booktabs table exported to: {latex_table_path}")
-
-    # Generate Publication Figures (unless --no_figures)
-    if not args.no_figures:
-        dist_plot_path = figures_dir / "accuracy_distributions.png"
-        plot_accuracy_distributions(results, str(dist_plot_path), baseline_name=baseline_ref)
-        print(f"[INFO] Distribution boxplot exported to: {dist_plot_path}")
-
-        # Koopman Eigenvalue Spectrum Polar Plot
-        if "KL-Net" in models_dict:
-            try:
-                kl_inst = models_dict["KL-Net"]()
-                if hasattr(kl_inst, "koopman") and kl_inst.koopman is not None:
-                    eigs = kl_inst.koopman.get_eigenvalues().detach().cpu().numpy()
-                    eig_plot_path = figures_dir / "koopman_eigenvalues.png"
-                    plot_koopman_eigenvalues(eigs, str(eig_plot_path))
-                    print(f"[INFO] Koopman polar spectrum exported to: {eig_plot_path}")
-            except Exception as e:
-                print(f"[WARNING] Skipping Koopman polar spectrum plot: {e}")
-
-    # Display Markdown Table Summary on Console
-    print("\n" + "=" * 78)
-    print("  BENCHMARK SUMMARY REPORT")
-    print("=" * 78)
-    if md_table_path.exists():
-        print(md_table_path.read_text(encoding="utf-8"))
-    print("=" * 78)
+    # Aggregate all completed checkpoints and generate publication artifacts
+    print("\n[INFO] Aggregating all subject checkpoints and exporting publication artifacts...")
+    from koopman_lusi.evaluation.aggregate import aggregate_and_report
+    baseline_ref = "EEGNet-4,2" if "EEGNet-4,2" in models_dict else list(models_dict.keys())[-1]
+    aggregate_and_report(
+        output_dir=args.output_dir,
+        baseline_name=baseline_ref,
+        no_figures=args.no_figures,
+        models_dict=models_dict,
+    )
 
     return 0
 

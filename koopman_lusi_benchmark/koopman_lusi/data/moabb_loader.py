@@ -1,20 +1,22 @@
 """
-MOABB / MNE Dataset Ingestion Pipelines with Two-Tier Caching
-============================================================
-Provides automated, robust data loading for:
+MOABB / MNE Dataset Ingestion Pipelines with Two-Tier Per-Subject Caching
+=========================================================================
+Provides automated, memory-safe data loading for:
 1. BCI Competition IV-2a (BNCI2014_001, 9 subjects, 22 EEG channels @ 250 Hz, 4 classes)
 2. PhysioNet Motor Imagery (PhysionetMI, 109 subjects, 64 channels @ 160 Hz, 4 classes)
 
 Features:
+- Individual per-subject caching (.npz) preventing RAM exhaustion on free-tier Colab.
 - Bandpass filtering (default 4.0 - 38.0 Hz).
 - Automatic EOG stripping (yielding strictly 22 EEG channels for BCI IV-2a).
 - Channel-wise Z-score normalization per trial.
 - Temporal state-pair slicing (X_t, X_next) for Koopman dynamic rollout.
 - Sample covariance matrix computation (SPD) for Riemannian geometry.
-- Two-tier caching: Local disk cache (.npz) -> Live MOABB -> Physiological SMR Synthetic fallback.
+- Graceful, automatic physiological SMR synthetic fallback when network/servers throttle.
 """
 
 import os
+import gc
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 import numpy as np
@@ -35,8 +37,8 @@ except (ImportError, Exception):
     MOABB_AVAILABLE = False
 
 
-def load_bci_iv_2a(
-    subjects: Optional[List[int]] = None,
+def load_bci_iv_2a_single_subject(
+    subject_id: int,
     fmin: float = 4.0,
     fmax: float = 38.0,
     tmin: float = 0.0,
@@ -48,50 +50,11 @@ def load_bci_iv_2a(
     use_synthetic_fallback: bool = True
 ) -> Dict[str, Any]:
     """
-    Loads BCI Competition IV-2a dataset (9 subjects, 22 EEG channels @ 250 Hz, 4 classes).
-    Strips 3 EOG channels, keeping strictly 22 EEG channels.
-
-    Parameters
-    ----------
-    subjects : list of int, optional
-        Subject IDs (1 to 9). Defaults to all 9 subjects: list(range(1, 10)).
-    fmin : float, default=4.0
-        Lower bandpass cutoff in Hz.
-    fmax : float, default=38.0
-        Upper bandpass cutoff in Hz.
-    tmin : float, default=0.0
-        Trial epoch start relative to cue onset (seconds).
-    tmax : float, default=4.0
-        Trial epoch end relative to cue onset (seconds).
-    resample : float, optional
-        Target sampling rate. Default is None (native 250 Hz).
-    cache_dir : str, default="data_cache/bci_iv_2a"
-        Directory for local .npz disk cache.
-    time_window : int, default=400
-        Number of time samples for state window X_t and X_next.
-    time_delay : int, default=100
-        Temporal delay in samples between X_t and X_next.
-    use_synthetic_fallback : bool, default=True
-        Whether to seamlessly fall back to the physiological SMR synthetic generator
-        when MOABB or remote download is unavailable.
-
-    Returns
-    -------
-    dict
-        'X_t': (N, 22, time_window)
-        'X_next': (N, 22, time_window)
-        'y': (N,) class labels in {0, 1, 2, 3}
-        'subject_ids': (N,) 0-indexed subject IDs
-        'cov': (N, 22, 22) SPD sample covariance matrices
-        'fs': sampling rate in Hz
-        'channels': list of channel names
+    Loads or generates a single subject from BCI Competition IV-2a into disk cache.
+    Keeps memory footprint strictly under ~100MB to avoid Colab kernel OOM.
     """
-    if subjects is None:
-        subjects = list(range(1, 10))
-
     os.makedirs(cache_dir, exist_ok=True)
-    subj_str = f"s{min(subjects)}_s{max(subjects)}_n{len(subjects)}"
-    cache_file = Path(cache_dir) / f"bci2a_{subj_str}_{fmin}_{fmax}hz_{time_window}w.npz"
+    cache_file = Path(cache_dir) / f"subject_{subject_id:02d}_{fmin}_{fmax}hz_{time_window}w.npz"
 
     # 1. Tier 1: Local Disk Cache Hit
     if cache_file.exists():
@@ -109,7 +72,7 @@ def load_bci_iv_2a(
         except Exception:
             pass  # Corrupted cache, proceed to reload
 
-    # 2. Tier 2: Live MOABB Ingestion
+    # 2. Tier 2: Live MOABB Ingestion for this single subject
     if MOABB_AVAILABLE:
         try:
             mne.set_log_level("ERROR")
@@ -123,12 +86,12 @@ def load_bci_iv_2a(
                 tmax=tmax,
                 resample=resample
             )
-            X, labels, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
+            print(f"[DATA] Ingesting BCI IV-2a Subject {subject_id} via MOABB...")
+            X, labels, metadata = paradigm.get_data(dataset=dataset, subjects=[subject_id])
 
-            # Map class strings to integers 0..3
             label_map = {'left_hand': 0, 'right_hand': 1, 'feet': 2, 'tongue': 3}
             y = np.array([label_map[lbl] for lbl in labels], dtype=np.int64)
-            subject_ids = metadata['subject'].values.astype(np.int64) - 1
+            subject_ids = np.full(len(y), subject_id - 1, dtype=np.int64)
 
             # Strict 22 EEG channels: strip EOG channels if present
             if X.shape[1] > 22:
@@ -150,7 +113,7 @@ def load_bci_iv_2a(
             fs = int(resample) if resample is not None else 250
             channels = [f"EEG_{i + 1}" for i in range(C)]
 
-            # Save to local disk cache
+            # Save to per-subject disk cache
             np.savez_compressed(
                 cache_file,
                 X_t=X_t,
@@ -162,6 +125,11 @@ def load_bci_iv_2a(
                 channels=channels
             )
 
+            # Clean memory immediately
+            del X, labels, metadata
+            gc.collect()
+
+            print(f"[DATA] Subject {subject_id} successfully cached to {cache_file.name}")
             return {
                 "X_t": X_t,
                 "X_next": X_next,
@@ -173,26 +141,23 @@ def load_bci_iv_2a(
             }
         except Exception as e:
             if not use_synthetic_fallback:
-                raise RuntimeError(f"Failed to ingest MOABB BCI IV-2a: {e}") from e
+                raise RuntimeError(f"Failed to ingest MOABB BCI IV-2a subject {subject_id}: {e}") from e
+            print(f"[DATA] MOABB offline or download failed for Subject {subject_id} ({e}). Generating high-fidelity SMR fallback...")
 
-    # 3. Tier 3: High-Fidelity Physiological SMR Fallback
+    # 3. Tier 3: High-Fidelity Physiological SMR Fallback for this single subject
     fs = int(resample) if resample is not None else 250
     synth = generate_synthetic_smr_dataset(
-        num_subjects=len(subjects),
+        num_subjects=1,
         trials_per_subject=144,
         num_channels=22,
         time_samples=max(500, time_window + time_delay),
         sampling_rate=fs,
         time_window=time_window,
         time_delay=time_delay,
-        random_seed=42
+        random_seed=42 + subject_id
     )
+    synth["subject_ids"] = np.full(len(synth["y"]), subject_id - 1, dtype=np.int64)
 
-    # Remap synthetic subject_ids to match requested subjects
-    subj_map = {idx: (subjects[idx] - 1) for idx in range(len(subjects))}
-    synth["subject_ids"] = np.array([subj_map[s] for s in synth["subject_ids"]], dtype=np.int64)
-
-    # Save synthetic fallback to cache for speed
     try:
         np.savez_compressed(
             cache_file,
@@ -210,8 +175,81 @@ def load_bci_iv_2a(
     return synth
 
 
-def load_physionet_mi(
+def load_bci_iv_2a(
     subjects: Optional[List[int]] = None,
+    fmin: float = 4.0,
+    fmax: float = 38.0,
+    tmin: float = 0.0,
+    tmax: float = 4.0,
+    resample: Optional[float] = None,
+    cache_dir: str = "data_cache/bci_iv_2a",
+    time_window: int = 400,
+    time_delay: int = 100,
+    use_synthetic_fallback: bool = True
+) -> Dict[str, Any]:
+    """
+    Loads BCI Competition IV-2a dataset across specified subjects using memory-safe per-subject caching.
+    """
+    if subjects is None:
+        subjects = list(range(1, 10))
+
+    # Fast path: check if monolithic cache file already exists from legacy run
+    os.makedirs(cache_dir, exist_ok=True)
+    subj_str = f"s{min(subjects)}_s{max(subjects)}_n{len(subjects)}"
+    mono_cache = Path(cache_dir) / f"bci2a_{subj_str}_{fmin}_{fmax}hz_{time_window}w.npz"
+    if mono_cache.exists():
+        try:
+            data = np.load(mono_cache, allow_pickle=True)
+            return {
+                "X_t": data["X_t"],
+                "X_next": data["X_next"],
+                "y": data["y"],
+                "subject_ids": data["subject_ids"],
+                "cov": data["cov"] if "cov" in data else compute_sample_covariances(data["X_t"]),
+                "fs": int(data["fs"]),
+                "channels": data["channels"].tolist() if hasattr(data["channels"], "tolist") else list(data["channels"])
+            }
+        except Exception:
+            pass
+
+    # Load each subject safely
+    subject_datasets = []
+    for s in subjects:
+        s_data = load_bci_iv_2a_single_subject(
+            subject_id=s,
+            fmin=fmin,
+            fmax=fmax,
+            tmin=tmin,
+            tmax=tmax,
+            resample=resample,
+            cache_dir=cache_dir,
+            time_window=time_window,
+            time_delay=time_delay,
+            use_synthetic_fallback=use_synthetic_fallback,
+        )
+        subject_datasets.append(s_data)
+
+    merged = {
+        "X_t": np.concatenate([d["X_t"] for d in subject_datasets], axis=0),
+        "X_next": np.concatenate([d["X_next"] for d in subject_datasets], axis=0),
+        "y": np.concatenate([d["y"] for d in subject_datasets], axis=0),
+        "subject_ids": np.concatenate([d["subject_ids"] for d in subject_datasets], axis=0),
+        "cov": np.concatenate([d["cov"] for d in subject_datasets], axis=0),
+        "fs": subject_datasets[0]["fs"],
+        "channels": subject_datasets[0]["channels"]
+    }
+
+    # Save monolithic cache for instant future reloads
+    try:
+        np.savez_compressed(mono_cache, **merged)
+    except Exception:
+        pass
+
+    return merged
+
+
+def load_physionet_mi_single_subject(
+    subject_id: int,
     fmin: float = 4.0,
     fmax: float = 38.0,
     tmin: float = 0.0,
@@ -222,51 +260,10 @@ def load_physionet_mi(
     time_delay: int = 80,
     use_synthetic_fallback: bool = True
 ) -> Dict[str, Any]:
-    """
-    Loads PhysioNet Motor Imagery dataset (109 subjects, 64 channels @ 160 Hz, 4 classes).
-
-    Parameters
-    ----------
-    subjects : list of int, optional
-        Subject IDs (1 to 109). Defaults to all 109 subjects: list(range(1, 110)).
-    fmin : float, default=4.0
-        Lower bandpass cutoff in Hz.
-    fmax : float, default=38.0
-        Upper bandpass cutoff in Hz.
-    tmin : float, default=0.0
-        Trial epoch start relative to cue onset (seconds).
-    tmax : float, default=3.0
-        Trial epoch end relative to cue onset (seconds).
-    resample : float, default=160.0
-        Target sampling rate (native is 160 Hz).
-    cache_dir : str, default="data_cache/physionet"
-        Directory for local .npz disk cache.
-    time_window : int, default=400
-        Number of time samples for state window X_t and X_next.
-    time_delay : int, default=80
-        Temporal delay in samples between X_t and X_next.
-    use_synthetic_fallback : bool, default=True
-        Whether to fall back to synthetic generation when MOABB is offline.
-
-    Returns
-    -------
-    dict
-        'X_t': (N, 64, time_window)
-        'X_next': (N, 64, time_window)
-        'y': (N,) class labels in {0, 1, 2, 3}
-        'subject_ids': (N,) 0-indexed subject IDs
-        'cov': (N, 64, 64) SPD sample covariance matrices
-        'fs': sampling rate in Hz
-        'channels': list of channel names
-    """
-    if subjects is None:
-        subjects = list(range(1, 110))
-
+    """Loads a single PhysioNet MI subject into cache safely."""
     os.makedirs(cache_dir, exist_ok=True)
-    subj_str = f"s{min(subjects)}_s{max(subjects)}_n{len(subjects)}"
-    cache_file = Path(cache_dir) / f"physionet_{subj_str}_{fmin}_{fmax}hz_{time_window}w.npz"
+    cache_file = Path(cache_dir) / f"subject_{subject_id:03d}_{fmin}_{fmax}hz_{time_window}w.npz"
 
-    # 1. Tier 1: Local Disk Cache Hit
     if cache_file.exists():
         try:
             data = np.load(cache_file, allow_pickle=True)
@@ -282,7 +279,6 @@ def load_physionet_mi(
         except Exception:
             pass
 
-    # 2. Tier 2: Live MOABB Ingestion
     if MOABB_AVAILABLE:
         try:
             mne.set_log_level("ERROR")
@@ -296,11 +292,12 @@ def load_physionet_mi(
                 tmax=tmax,
                 resample=resample
             )
-            X, labels, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
+            print(f"[DATA] Ingesting PhysioNet Subject {subject_id} via MOABB...")
+            X, labels, metadata = paradigm.get_data(dataset=dataset, subjects=[subject_id])
 
             label_map = {'left_hand': 0, 'right_hand': 1, 'feet': 2, 'hands': 3}
             y = np.array([label_map[lbl] for lbl in labels], dtype=np.int64)
-            subject_ids = metadata['subject'].values.astype(np.int64) - 1
+            subject_ids = np.full(len(y), subject_id - 1, dtype=np.int64)
 
             if X.shape[1] > 64:
                 X = X[:, :64, :]
@@ -330,6 +327,10 @@ def load_physionet_mi(
                 channels=channels
             )
 
+            del X, labels, metadata
+            gc.collect()
+
+            print(f"[DATA] PhysioNet Subject {subject_id} successfully cached to {cache_file.name}")
             return {
                 "X_t": X_t,
                 "X_next": X_next,
@@ -341,36 +342,96 @@ def load_physionet_mi(
             }
         except Exception as e:
             if not use_synthetic_fallback:
-                raise RuntimeError(f"Failed to ingest MOABB PhysioNet MI: {e}") from e
+                raise RuntimeError(f"Failed to ingest MOABB PhysioNet MI subject {subject_id}: {e}") from e
+            print(f"[DATA] MOABB offline or failed for PhysioNet Subject {subject_id}. Using SMR fallback...")
 
-    # 3. Tier 3: Synthetic Fallback
     fs = int(resample) if resample is not None else 160
     synth = generate_synthetic_smr_dataset(
-        num_subjects=len(subjects),
+        num_subjects=1,
         trials_per_subject=90,
         num_channels=64,
         time_samples=max(480, time_window + time_delay),
         sampling_rate=fs,
         time_window=time_window,
         time_delay=time_delay,
-        random_seed=42
+        random_seed=42 + subject_id
     )
-
-    subj_map = {idx: (subjects[idx] - 1) for idx in range(len(subjects))}
-    synth["subject_ids"] = np.array([subj_map[s] for s in synth["subject_ids"]], dtype=np.int64)
+    synth["subject_ids"] = np.full(len(synth["y"]), subject_id - 1, dtype=np.int64)
 
     try:
-        np.savez_compressed(
-            cache_file,
-            X_t=synth["X_t"],
-            X_next=synth["X_next"],
-            y=synth["y"],
-            subject_ids=synth["subject_ids"],
-            cov=synth["cov"],
-            fs=synth["fs"],
-            channels=synth["channels"]
-        )
+        np.savez_compressed(cache_file, **synth)
     except Exception:
         pass
 
     return synth
+
+
+def load_physionet_mi(
+    subjects: Optional[List[int]] = None,
+    fmin: float = 4.0,
+    fmax: float = 38.0,
+    tmin: float = 0.0,
+    tmax: float = 3.0,
+    resample: Optional[float] = 160.0,
+    cache_dir: str = "data_cache/physionet",
+    time_window: int = 400,
+    time_delay: int = 80,
+    use_synthetic_fallback: bool = True
+) -> Dict[str, Any]:
+    """
+    Loads PhysioNet Motor Imagery dataset safely across requested subjects using per-subject caching.
+    """
+    if subjects is None:
+        subjects = list(range(1, 110))
+
+    # Fast path: check if monolithic cache exists
+    os.makedirs(cache_dir, exist_ok=True)
+    subj_str = f"s{min(subjects)}_s{max(subjects)}_n{len(subjects)}"
+    mono_cache = Path(cache_dir) / f"physionet_{subj_str}_{fmin}_{fmax}hz_{time_window}w.npz"
+    if mono_cache.exists():
+        try:
+            data = np.load(mono_cache, allow_pickle=True)
+            return {
+                "X_t": data["X_t"],
+                "X_next": data["X_next"],
+                "y": data["y"],
+                "subject_ids": data["subject_ids"],
+                "cov": data["cov"] if "cov" in data else compute_sample_covariances(data["X_t"]),
+                "fs": int(data["fs"]),
+                "channels": data["channels"].tolist() if hasattr(data["channels"], "tolist") else list(data["channels"])
+            }
+        except Exception:
+            pass
+
+    subject_datasets = []
+    for s in subjects:
+        s_data = load_physionet_mi_single_subject(
+            subject_id=s,
+            fmin=fmin,
+            fmax=fmax,
+            tmin=tmin,
+            tmax=tmax,
+            resample=resample,
+            cache_dir=cache_dir,
+            time_window=time_window,
+            time_delay=time_delay,
+            use_synthetic_fallback=use_synthetic_fallback,
+        )
+        subject_datasets.append(s_data)
+
+    merged = {
+        "X_t": np.concatenate([d["X_t"] for d in subject_datasets], axis=0),
+        "X_next": np.concatenate([d["X_next"] for d in subject_datasets], axis=0),
+        "y": np.concatenate([d["y"] for d in subject_datasets], axis=0),
+        "subject_ids": np.concatenate([d["subject_ids"] for d in subject_datasets], axis=0),
+        "cov": np.concatenate([d["cov"] for d in subject_datasets], axis=0),
+        "fs": subject_datasets[0]["fs"],
+        "channels": subject_datasets[0]["channels"]
+    }
+
+    try:
+        np.savez_compressed(mono_cache, **merged)
+    except Exception:
+        pass
+
+    return merged
