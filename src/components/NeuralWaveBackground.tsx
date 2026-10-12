@@ -93,7 +93,7 @@ export const NeuralWaveBackground: React.FC<{ className?: string }> = ({ classNa
         id: 'c3',
         label: 'EEG C3 (Sensorimotor μ-Rhythm)',
         yRatio: 0.54,
-        alphaStroke: 'rgba(244, 244, 245, 0.38)',
+        alphaStroke: 'rgba(200, 125, 85, 0.45)',
         // Classic comb/arch shaped mu rhythm: ~10 Hz fundamental + ~20 Hz second harmonic
         modes: [
           { freq: 0.0035, amp: 3.5, phase: 1.1 },
@@ -153,9 +153,9 @@ export const NeuralWaveBackground: React.FC<{ className?: string }> = ({ classNa
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Electrode Channel Tag on left (Sterling Fog #9CA3AF)
+        // Electrode Channel Tag on left (Sterling Fog #9CA3AF / Copper for C3)
         ctx.font = '10px "JetBrains Mono", monospace';
-        ctx.fillStyle = 'rgba(156, 163, 175, 0.55)';
+        ctx.fillStyle = ch.id === 'c3' ? 'rgba(200, 125, 85, 0.75)' : 'rgba(156, 163, 175, 0.55)';
         ctx.fillText(ch.label, 16, centerY - 9);
 
         // Continuous Invariant Waveform Trace

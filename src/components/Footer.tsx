@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail, ArrowUp } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { portfolioData } from '../data/portfolioData';
+import { DecoDivider } from './DecoDivider';
 
 export const Footer: React.FC = () => {
   const { personal } = portfolioData;
@@ -14,6 +15,9 @@ export const Footer: React.FC = () => {
     <footer className="bg-[#09090B] border-t border-[#27272A] py-12 text-[#9CA3AF] font-serif text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Art Deco Geometric Divider */}
+        <DecoDivider className="pb-8" />
+
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-[#27272A]">
           
           {/* Left info */}
@@ -29,15 +33,16 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Center Social Links */}
+          {/* Center Social Links with Inset Frames */}
           <div className="flex items-center gap-3">
             <a
               href={personal.links.scholar}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+              className="relative p-2.5 bg-[#121215] border border-[#27272A] hover:border-[#C87D55] text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1A181A] transition-all cursor-pointer group"
               title="Google Scholar"
             >
+              <div className="absolute inset-[2px] border border-[#C87D55]/10 group-hover:border-[#C87D55]/40 transition-colors pointer-events-none" />
               <span className="font-serif font-bold text-xs">GS</span>
             </a>
 
@@ -45,9 +50,10 @@ export const Footer: React.FC = () => {
               href={personal.links.github}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+              className="relative p-2.5 bg-[#121215] border border-[#27272A] hover:border-[#C87D55] text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1A181A] transition-all cursor-pointer group"
               title="GitHub"
             >
+              <div className="absolute inset-[2px] border border-[#C87D55]/10 group-hover:border-[#C87D55]/40 transition-colors pointer-events-none" />
               <GithubIcon className="w-4 h-4" />
             </a>
 
@@ -55,17 +61,19 @@ export const Footer: React.FC = () => {
               href={personal.links.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+              className="relative p-2.5 bg-[#121215] border border-[#27272A] hover:border-[#C87D55] text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1A181A] transition-all cursor-pointer group"
               title="LinkedIn"
             >
+              <div className="absolute inset-[2px] border border-[#C87D55]/10 group-hover:border-[#C87D55]/40 transition-colors pointer-events-none" />
               <LinkedinIcon className="w-4 h-4" />
             </a>
 
             <a
               href={personal.links.email}
-              className="p-2.5 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+              className="relative p-2.5 bg-[#121215] border border-[#27272A] hover:border-[#C87D55] text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1A181A] transition-all cursor-pointer group"
               title="Email"
             >
+              <div className="absolute inset-[2px] border border-[#C87D55]/10 group-hover:border-[#C87D55]/40 transition-colors pointer-events-none" />
               <Mail className="w-4 h-4" />
             </a>
           </div>
@@ -73,10 +81,11 @@ export const Footer: React.FC = () => {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#121215] border border-[#27272A] text-[#9CA3AF] hover:text-[#FFFFFF] hover:border-[#FFFFFF] hover:bg-[#1E1E24] transition-all uppercase tracking-wider text-[11px] cursor-pointer"
+            className="relative inline-flex items-center gap-2 px-4 py-2 bg-[#121215] border border-[#27272A] hover:border-[#C87D55] text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1A181A] transition-all uppercase tracking-widest text-[11px] cursor-pointer group"
           >
+            <div className="absolute inset-[2px] border border-[#C87D55]/10 group-hover:border-[#C87D55]/40 transition-colors pointer-events-none" />
             <span>Back to top</span>
-            <ArrowUp className="w-4 h-4 text-[#FFFFFF]" />
+            <ArrowUp className="w-4 h-4 text-[#C87D55]" />
           </button>
         </div>
 
@@ -87,8 +96,8 @@ export const Footer: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1 text-[#9CA3AF]">
-              <span className="w-1.5 h-1.5 bg-[#FFFFFF]" />
+            <span className="inline-flex items-center gap-1.5 text-[#9CA3AF]">
+              <span className="w-1.5 h-1.5 rotate-45 bg-[#C87D55]" />
               Cloudflare Pages & GitHub
             </span>
           </div>

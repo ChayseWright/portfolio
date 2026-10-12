@@ -32,24 +32,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
     <header 
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#09090B]/95 backdrop-blur-md border-b border-[#27272A] shadow-xl shadow-black/80 py-3' 
+          ? 'bg-[#09090B]/95 backdrop-blur-md border-b border-[#C87D55]/25 shadow-xl shadow-black/80 py-3' 
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand / Logo (Architectural Monogram Crest) */}
+        {/* Brand / Logo (Art Deco Monogram Crest with Double Hairline Frame) */}
         <a 
           href="#" 
           className="group flex items-center gap-3.5 transition-transform"
         >
-          <div className="w-10 h-10 bg-[#121215] border border-[#27272A] group-hover:border-[#FFFFFF] flex items-center justify-center transition-colors">
-            <span className="font-serif font-normal text-[#FFFFFF] text-sm tracking-widest">
+          <div className="relative w-10 h-10 bg-[#121215] border border-[#27272A] group-hover:border-[#C87D55] flex items-center justify-center transition-all duration-300">
+            <div className="absolute inset-[2.5px] border border-[#C87D55]/25 group-hover:border-[#C87D55]/60 transition-colors pointer-events-none" />
+            <span className="font-serif font-normal text-[#FFFFFF] group-hover:text-[#DE936B] text-sm tracking-widest transition-colors">
               CW
             </span>
           </div>
-          <span className="font-serif font-normal text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors">
-            {portfolioData.personal.name}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-serif font-normal text-[#F4F4F5] tracking-wide text-base group-hover:text-[#FFFFFF] transition-colors leading-tight">
+              {portfolioData.personal.name}
+            </span>
+            <span className="text-[10px] font-serif uppercase tracking-[0.2em] text-[#C87D55]/80">
+              Ph.D. Candidate · Neuromechanics
+            </span>
+          </div>
         </a>
 
         {/* Desktop Navigation Links */}
@@ -58,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
             <a
               key={link.label}
               href={link.href}
-              className="px-3.5 py-1.5 text-sm text-[#9CA3AF] hover:text-[#F4F4F5] hover:bg-[#1E1E24] transition-all tracking-wide border-b-2 border-transparent hover:border-[#FFFFFF]"
+              className="px-3.5 py-1.5 text-sm text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all tracking-wider uppercase text-[12px] border-b-2 border-transparent hover:border-[#C87D55]"
             >
               {link.label}
             </a>
@@ -71,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
             href={portfolioData.personal.links.github}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-[#9CA3AF] hover:text-[#F4F4F5] hover:bg-[#1E1E24] transition-all border border-transparent hover:border-[#27272A]"
+            className="p-2 text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all border border-transparent hover:border-[#C87D55]/40"
             title="GitHub Profile"
           >
             <GithubIcon className="w-4 h-4" />
@@ -79,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
           <button
             onClick={onOpenCv}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-normal tracking-wider uppercase bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-serif font-normal tracking-widest uppercase bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] hover:border-[#C87D55] shadow-md hover:shadow-[0_0_15px_rgba(200,125,85,0.25)] transition-all cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5 text-[#09090B]" />
             <span>Curriculum Vitae</span>
@@ -108,17 +114,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden px-4 pt-3 pb-6 bg-[#121215] border-b border-[#27272A] font-serif">
+        <div className="md:hidden px-4 pt-3 pb-6 bg-[#121215] border-b border-[#C87D55]/30 font-serif">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2 text-sm text-[#F4F4F5] hover:text-[#FFFFFF] hover:bg-[#1E1E24] border-l-2 border-transparent hover:border-[#FFFFFF]"
+                className="flex items-center gap-3 px-3 py-2 text-sm text-[#F4F4F5] hover:text-[#FFFFFF] hover:bg-[#1E1E24] border-l-2 border-transparent hover:border-[#C87D55]"
               >
-                {link.icon && <link.icon className="w-4 h-4 text-[#9CA3AF]" />}
-                <span>{link.label}</span>
+                {link.icon && <link.icon className="w-4 h-4 text-[#C87D55]" />}
+                <span className="tracking-wider uppercase text-[12px]">{link.label}</span>
               </a>
             ))}
             
@@ -127,16 +133,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
                 href={portfolioData.personal.links.byuLab}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-[#9CA3AF] hover:text-[#F4F4F5] flex items-center gap-1.5"
+                className="text-xs text-[#9CA3AF] hover:text-[#FFFFFF] flex items-center gap-1.5"
               >
                 <span>BYU Neuromechanics Group</span>
-                <ExternalLink className="w-3 h-3" />
+                <ExternalLink className="w-3 h-3 text-[#C87D55]" />
               </a>
               <a
                 href={portfolioData.personal.links.github}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 text-[#9CA3AF] hover:text-[#F4F4F5]"
+                className="p-2 text-[#9CA3AF] hover:text-[#FFFFFF]"
               >
                 <GithubIcon className="w-4 h-4" />
               </a>

@@ -21,18 +21,19 @@ export const BibtexModal: React.FC<BibtexModalProps> = ({ publication, onClose }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#09090B]/85 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-[#121215] border border-[#27272A] shadow-2xl shadow-black overflow-hidden font-serif"
+        className="relative w-full max-w-2xl bg-[#121215] deco-card deco-corners shadow-2xl shadow-black overflow-hidden font-serif"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#27272A] bg-[#121215]">
-          <div className="flex items-center gap-2 text-[#FFFFFF] text-xs font-serif uppercase tracking-widest font-bold">
-            <FileText className="w-4 h-4 text-[#9CA3AF]" />
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#C87D55]/30 bg-[#121215]">
+          <div className="flex items-center gap-2.5 text-xs font-serif uppercase tracking-[0.2em] font-normal text-[#C87D55]">
+            <span className="w-1.5 h-1.5 rotate-45 bg-[#C87D55]" />
+            <FileText className="w-4 h-4 text-[#C87D55]" />
             <span>BibTeX Citation Dossier</span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+            className="p-1.5 text-[#9CA3AF] hover:text-[#C87D55] hover:bg-[#1E1E24] transition-all cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -44,7 +45,7 @@ export const BibtexModal: React.FC<BibtexModalProps> = ({ publication, onClose }
           <h4 className="text-base font-serif font-bold text-[#FFFFFF] line-clamp-2">
             {publication.title}
           </h4>
-          <p className="text-xs font-serif text-[#9CA3AF] mt-1">
+          <p className="text-xs font-serif text-[#C87D55]/80 mt-1">
             {publication.venue} ({publication.year})
           </p>
         </div>
@@ -52,7 +53,7 @@ export const BibtexModal: React.FC<BibtexModalProps> = ({ publication, onClose }
         {/* BibTeX Code Box */}
         <div className="p-6 pt-2">
           <div className="relative bg-[#09090B] border border-[#27272A] p-4 font-mono text-xs text-[#F4F4F5] overflow-x-auto">
-            <pre className="whitespace-pre-wrap selection:bg-[#FFFFFF] selection:text-[#09090B]">{publication.bibtex}</pre>
+            <pre className="whitespace-pre-wrap selection:bg-[#C87D55]/30 selection:text-[#DE936B]">{publication.bibtex}</pre>
           </div>
         </div>
 

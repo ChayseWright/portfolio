@@ -33,9 +33,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 font-serif">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-[#121215] text-[#9CA3AF] border border-[#27272A] mb-3">
-            <FolderGit2 className="w-3.5 h-3.5 text-[#9CA3AF]" />
+        <div className="max-w-3xl mb-14 font-serif">
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-[0.2em] bg-[#121215] text-[#C87D55] border border-[#C87D55]/30 mb-3">
+            <span className="w-1.5 h-1.5 rotate-45 bg-[#C87D55]" />
+            <FolderGit2 className="w-3.5 h-3.5 text-[#C87D55]" />
             <span>ENGINEERING & COMPUTATIONAL SYSTEMS</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FFFFFF] tracking-tight">
@@ -52,16 +53,16 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
             {projects.map((project: Project) => (
               <div
                 key={project.id}
-                className="group bg-[#121215] border border-[#27272A] hover:border-[#9CA3AF]/40 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300"
+                className="group deco-card deco-corners p-7 sm:p-8 flex flex-col justify-between transition-all duration-300"
               >
                 <div>
                   {/* Category Pill */}
                   <div className="flex items-center justify-between pb-3 border-b border-[#27272A] mb-4">
-                    <span className="px-2.5 py-1 text-[11px] uppercase tracking-wider bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A]">
+                    <span className="px-2.5 py-1 text-[11px] uppercase tracking-wider bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A] group-hover:border-[#C87D55]/40 transition-colors">
                       {getCategoryLabel(project.category)}
                     </span>
                     {project.featured && (
-                      <span className="text-[11px] uppercase tracking-widest text-[#9CA3AF] font-serif">
+                      <span className="text-[11px] uppercase tracking-widest text-[#C87D55] font-serif">
                         Featured
                       </span>
                     )}
@@ -70,12 +71,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                   {/* Title & Subtitle */}
                   <h3 
                     onClick={() => onSelectProject(project)}
-                    className="text-xl font-serif font-bold text-[#F4F4F5] group-hover:text-[#FFFFFF] transition-colors leading-snug cursor-pointer mb-2"
+                    className="text-xl font-serif font-bold text-[#F4F4F5] group-hover:text-[#DE936B] transition-colors leading-snug cursor-pointer mb-2"
                   >
                     {project.title}
                   </h3>
                   {project.subtitle && (
-                    <p className="text-xs font-serif italic text-[#9CA3AF] mb-4">
+                    <p className="text-xs font-serif italic text-[#C87D55]/80 mb-4">
                       {project.subtitle}
                     </p>
                   )}
@@ -90,8 +91,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                     {project.metrics.map((m, mIdx) => (
                       <div 
                         key={mIdx}
-                        className="p-2.5 bg-[#09090B] border border-[#27272A] flex flex-col justify-between text-center"
+                        className="p-2.5 bg-[#09090B] border border-[#27272A] group-hover:border-[#C87D55]/25 flex flex-col justify-between text-center transition-colors relative"
                       >
+                        <div className="absolute inset-[1.5px] border border-[#C87D55]/5 pointer-events-none" />
                         <span className="text-[9px] uppercase tracking-wider text-[#9CA3AF] line-clamp-1 mb-1">
                           {m.label}
                         </span>
@@ -108,9 +110,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       {project.tools.slice(0, 4).map((tool, tIdx) => (
                         <span 
                           key={tIdx}
-                          className="px-2.5 py-1 text-[11px] bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A] flex items-center gap-1.5"
+                          className="px-2.5 py-1 text-[11px] bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A] hover:border-[#C87D55]/40 flex items-center gap-1.5 transition-colors"
                         >
-                          <span className="w-1 h-1 bg-[#FFFFFF] shrink-0" />
+                          <span className="w-1 h-1 rotate-45 bg-[#C87D55] shrink-0" />
                           <span>{tool}</span>
                         </span>
                       ))}
@@ -131,7 +133,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-2 bg-[#1E1E24] text-[#9CA3AF] hover:text-[#FFFFFF] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer"
+                        className="p-2 bg-[#1E1E24] text-[#9CA3AF] hover:text-[#FFFFFF] border border-[#27272A] hover:border-[#C87D55] transition-all cursor-pointer"
                         title="View Source Code on GitHub"
                         aria-label="View Source Code on GitHub"
                       >
@@ -143,7 +145,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                         href={project.demoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-serif bg-[#1E1E24] hover:bg-[#FFFFFF] text-[#F4F4F5] hover:text-[#09090B] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer group/btn"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-serif bg-[#1E1E24] hover:bg-[#FFFFFF] text-[#F4F4F5] hover:text-[#09090B] border border-[#27272A] hover:border-[#C87D55] transition-all cursor-pointer group/btn"
                         title="Watch Simulation Demo on YouTube"
                       >
                         <YoutubeIcon className="w-3.5 h-3.5 text-inherit" />
@@ -155,7 +157,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                         href={project.colabUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-serif bg-[#1E1E24] hover:bg-[#FFFFFF] text-[#F4F4F5] hover:text-[#09090B] border border-[#27272A] hover:border-[#FFFFFF] transition-all cursor-pointer group/btn"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-serif bg-[#1E1E24] hover:bg-[#FFFFFF] text-[#F4F4F5] hover:text-[#09090B] border border-[#27272A] hover:border-[#C87D55] transition-all cursor-pointer group/btn"
                         title="Open Interactive Google Colab Notebook"
                       >
                         <ColabIcon className="w-3.5 h-3.5 text-inherit" />
@@ -166,7 +168,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
 
                   <button
                     onClick={() => onSelectProject(project)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-serif uppercase tracking-wider font-bold bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] transition-all ml-auto cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-serif uppercase tracking-widest font-normal bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] hover:border-[#C87D55] shadow hover:shadow-[0_0_15px_rgba(200,125,85,0.25)] transition-all ml-auto cursor-pointer"
                   >
                     <span>Dossier</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#09090B]" />

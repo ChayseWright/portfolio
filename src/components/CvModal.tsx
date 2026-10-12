@@ -19,20 +19,20 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#09090B]/85 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#121215] border border-[#27272A] shadow-2xl shadow-black flex flex-col overflow-hidden font-serif"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-[#121215] deco-card deco-corners shadow-2xl shadow-black flex flex-col overflow-hidden font-serif"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Control Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#27272A] bg-[#121215]">
-          <div className="flex items-center gap-2 text-[#FFFFFF] text-xs uppercase tracking-widest font-bold">
-            <span className="w-1.5 h-1.5 bg-[#FFFFFF]" />
+        {/* Top Control Bar with Art Deco Hairline Border */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#C87D55]/30 bg-[#121215]">
+          <div className="flex items-center gap-2.5 text-[#C87D55] text-xs uppercase tracking-[0.2em] font-normal">
+            <span className="w-1.5 h-1.5 rotate-45 bg-[#C87D55]" />
             <span>Curriculum Vitae · Academic Record</span>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-[#09090B] bg-[#FFFFFF] hover:bg-[#F4F4F5] border border-[#FFFFFF] transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-serif uppercase tracking-widest font-normal text-[#09090B] bg-[#FFFFFF] hover:bg-[#F4F4F5] border border-[#FFFFFF] hover:border-[#C87D55] shadow transition-all cursor-pointer"
               title="Print or Save as PDF"
             >
               <Printer className="w-3.5 h-3.5 text-[#09090B]" />
@@ -41,7 +41,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
 
             <button
               onClick={onClose}
-              className="p-1.5 text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+              className="p-1.5 text-[#9CA3AF] hover:text-[#C87D55] hover:bg-[#1E1E24] transition-all cursor-pointer"
               aria-label="Close CV modal"
             >
               <X className="w-5 h-5" />

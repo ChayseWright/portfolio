@@ -30,20 +30,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#121215] border border-[#27272A] shadow-2xl shadow-black font-serif"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#121215] deco-card deco-corners shadow-2xl shadow-black font-serif"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-[#27272A] bg-[#121215]/95 backdrop-blur-md">
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-[#C87D55]/30 bg-[#121215]/95 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 text-xs uppercase tracking-widest bg-[#1E1E24] text-[#F4F4F5] border border-[#27272A]">
+            <span className="px-2.5 py-1 text-xs uppercase tracking-widest bg-[#1E1E24] text-[#F4F4F5] border border-[#C87D55]/30">
               {getCategoryLabel(project.category)}
             </span>
-            <span className="text-xs text-[#9CA3AF]">Technical Dossier</span>
+            <span className="text-xs font-serif uppercase tracking-[0.2em] text-[#C87D55]/80">Technical Dossier</span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#9CA3AF] hover:text-[#FFFFFF] hover:bg-[#1E1E24] transition-all cursor-pointer"
+            className="p-1.5 text-[#9CA3AF] hover:text-[#C87D55] hover:bg-[#1E1E24] transition-all cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -57,7 +57,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               {project.title}
             </h3>
             {project.subtitle && (
-              <p className="text-sm font-serif italic text-[#9CA3AF]">
+              <p className="text-sm font-serif italic text-[#C87D55]/80">
                 {project.subtitle}
               </p>
             )}

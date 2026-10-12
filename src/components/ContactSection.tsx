@@ -45,9 +45,10 @@ export const ContactSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 font-serif">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-widest bg-[#121215] text-[#9CA3AF] border border-[#27272A] mb-3">
-            <Mail className="w-3.5 h-3.5 text-[#9CA3AF]" />
+        <div className="max-w-3xl mb-14 font-serif">
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-xs uppercase tracking-[0.2em] bg-[#121215] text-[#C87D55] border border-[#C87D55]/30 mb-3">
+            <span className="w-1.5 h-1.5 rotate-45 bg-[#C87D55]" />
+            <Mail className="w-3.5 h-3.5 text-[#C87D55]" />
             <span>CONTACT & ACADEMIC COLLABORATION</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FFFFFF] tracking-tight">
@@ -63,7 +64,7 @@ export const ContactSection: React.FC = () => {
           {/* Left: BYU Lab Office & Details */}
           <div className="lg:col-span-5 space-y-6">
             
-            <div className="p-7 bg-[#121215] border border-[#27272A] space-y-6">
+            <div className="p-7 deco-card deco-corners space-y-6">
               <div>
                 <h3 className="text-xl font-serif font-bold text-[#FFFFFF] mb-1">
                   {contact.labName}
@@ -75,29 +76,29 @@ export const ContactSection: React.FC = () => {
 
               <div className="space-y-4 text-sm text-[#F4F4F5]">
                 <div className="flex items-start gap-3">
-                  <Building2 className="w-4 h-4 text-[#9CA3AF] shrink-0 mt-1" />
+                  <Building2 className="w-4 h-4 text-[#C87D55] shrink-0 mt-1" />
                   <div>
                     <span className="font-semibold text-[#FFFFFF]">Institution:</span> {contact.institution}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-[#9CA3AF] shrink-0 mt-1" />
+                  <MapPin className="w-4 h-4 text-[#C87D55] shrink-0 mt-1" />
                   <div>
                     <span className="font-semibold text-[#FFFFFF]">Location:</span> {contact.location}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Mail className="w-4 h-4 text-[#9CA3AF] shrink-0 mt-1" />
+                  <Mail className="w-4 h-4 text-[#C87D55] shrink-0 mt-1" />
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-[#FFFFFF] font-mono">{contact.email}</span>
                     <button
                       onClick={handleCopyEmail}
-                      className="p-1 text-[#9CA3AF] hover:text-[#FFFFFF] transition-colors cursor-pointer"
+                      className="p-1 text-[#9CA3AF] hover:text-[#C87D55] transition-colors cursor-pointer"
                       title="Copy email to clipboard"
                     >
-                      {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#FFFFFF]" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#C87D55]" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 </div>
@@ -109,27 +110,27 @@ export const ContactSection: React.FC = () => {
                   href={contact.labSite}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#FFFFFF] hover:text-[#F4F4F5] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#C87D55] hover:text-[#DE936B] transition-colors"
                 >
                   <span>Visit BYU Neuromechanics Group</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3 h-3 text-[#C87D55]" />
                 </a>
               </div>
             </div>
 
             {/* Academic Availability */}
-            <div className="p-5 bg-[#1E1E24] border border-[#27272A] text-xs text-[#9CA3AF] leading-relaxed">
-              <strong className="text-[#FFFFFF] block mb-1 uppercase tracking-wider">Research Availability:</strong>
+            <div className="p-5 bg-[#1E1E24] border border-[#27272A] hover:border-[#C87D55]/30 text-xs text-[#9CA3AF] leading-relaxed transition-colors">
+              <strong className="text-[#C87D55] block mb-1 uppercase tracking-wider">Research Availability:</strong>
               {contact.availability}
             </div>
 
           </div>
 
-          {/* Right: Direct Email Message Form (Clean Precision Rectangles) */}
+          {/* Right: Direct Email Message Form (Art Deco Inset Frame) */}
           <div className="lg:col-span-7">
-            <div className="p-7 sm:p-8 bg-[#121215] border border-[#27272A]">
+            <div className="p-7 sm:p-8 deco-card deco-corners">
               <h3 className="text-xl font-serif font-bold text-[#FFFFFF] mb-1 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#9CA3AF]" />
+                <MessageSquare className="w-4 h-4 text-[#C87D55]" />
                 <span>Send a Direct Message</span>
               </h3>
               <p className="text-xs text-[#9CA3AF] mb-6">
@@ -148,7 +149,7 @@ export const ContactSection: React.FC = () => {
                       placeholder="e.g. Dr. Jane Doe"
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#FFFFFF] focus:bg-[#1E1E24] transition-colors"
+                      className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#C87D55] focus:bg-[#121215] transition-colors"
                     />
                   </div>
 
@@ -162,7 +163,7 @@ export const ContactSection: React.FC = () => {
                       placeholder="e.g. jdoe@institution.edu"
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#FFFFFF] focus:bg-[#1E1E24] transition-colors"
+                      className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#C87D55] focus:bg-[#121215] transition-colors"
                     />
                   </div>
                 </div>
@@ -174,7 +175,7 @@ export const ContactSection: React.FC = () => {
                   <select
                     value={formState.subject}
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] focus:outline-none focus:border-[#FFFFFF] focus:bg-[#1E1E24] transition-colors"
+                    className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] focus:outline-none focus:border-[#C87D55] focus:bg-[#121215] transition-colors"
                   >
                     <option value="Tremor Research Collaboration (ET / PD)">Tremor Research Collaboration (ET / PD)</option>
                     <option value="Academic / Research Inquiry">Academic / Research Inquiry</option>
@@ -193,7 +194,7 @@ export const ContactSection: React.FC = () => {
                     placeholder="Enter your inquiry or proposal..."
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#FFFFFF] focus:bg-[#1E1E24] transition-colors"
+                    className="w-full px-3.5 py-2.5 bg-[#09090B] border border-[#27272A] text-xs text-[#F4F4F5] placeholder-[#9CA3AF]/40 focus:outline-none focus:border-[#C87D55] focus:bg-[#121215] transition-colors"
                   />
                 </div>
 
@@ -204,7 +205,7 @@ export const ContactSection: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] shadow-md transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-serif uppercase tracking-widest font-normal bg-[#FFFFFF] hover:bg-[#F4F4F5] text-[#09090B] border border-[#FFFFFF] hover:border-[#C87D55] shadow-md hover:shadow-[0_0_15px_rgba(200,125,85,0.25)] transition-all cursor-pointer"
                   >
                     {submitted ? (
                       <>
